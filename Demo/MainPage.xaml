@@ -5,9 +5,10 @@
     xmlns:local="using:Demo"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xp="using:XP"
     mc:Ignorable="d">
-
+   
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button bord/>
+        <xp:XPButton Height="60" Width="60" Content="asdf" ShadowBorderCount="9" ShadowLength="18" CornerRadius="0.5" ShadowBrush="Black"/>
     </Grid>
 </Page>

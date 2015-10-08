@@ -20,7 +20,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                        <Grid x:Name="RootGrid" Background="Transparent">
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal">
@@ -68,7 +68,9 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter x:Name="ContentPresenter" 
+                            <Grid x:Name="ShadowGrid" Background="Red">
+                            </Grid>
+                            <ContentPresenter x:Name="ContentPresenter"
                                               AutomationProperties.AccessibilityView="Raw" 
                                               BorderBrush="{TemplateBinding BorderBrush}" 
                                               BorderThickness="{TemplateBinding BorderThickness}" 

@@ -18,8 +18,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:XPButton">
-                    <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
-                        <Border 
+                    <Grid x:Name="RootGrid">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
@@ -67,16 +66,19 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter x:Name="ContentPresenter" 
-                                              AutomationProperties.AccessibilityView="Raw" 
-                                              BorderBrush="{TemplateBinding BorderBrush}" 
-                                              BorderThickness="{TemplateBinding BorderThickness}" 
-                                              ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                              ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                              Content="{TemplateBinding Content}" 
-                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              Padding="{TemplateBinding Padding}" 
-                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border x:Name="BackgroundBorder" Background="{TemplateBinding Background}"/>
+                        <Grid x:Name="ShadowGrid"/>
+                        <ContentPresenter x:Name="ContentPresenter"
+                                        AutomationProperties.AccessibilityView="Raw" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                        ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                        Content="{TemplateBinding Content}" 
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        Padding="{TemplateBinding Padding}" 
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                        </ContentPresenter>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
