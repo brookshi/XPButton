@@ -67,7 +67,7 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Border x:Name="BackgroundBorder" Background="{TemplateBinding Background}"/>
-                        <Grid x:Name="ShadowGrid"/>
+                        <Grid x:Name="ShadowGrid" CacheMode="BitmapCache"/>
                         <ContentPresenter x:Name="ContentPresenter"
                                         AutomationProperties.AccessibilityView="Raw" 
                                         BorderBrush="{TemplateBinding BorderBrush}" 

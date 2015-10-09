@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,13 +38,13 @@ namespace XP
         public static readonly DependencyProperty ShadowBorderCountProperty =
             DependencyProperty.Register("ShadowBorderCount", typeof(int), typeof(XPButton), new PropertyMetadata(0));
 
-        public Brush ShadowBrush
+        public Color ShadowColor
         {
-            get { return (Brush)GetValue(ShadowBrushProperty); }
-            set { SetValue(ShadowBrushProperty, value); }
+            get { return (Color)GetValue(ShadowColorProperty); }
+            set { SetValue(ShadowColorProperty, value); }
         }
-        public static readonly DependencyProperty ShadowBrushProperty =
-            DependencyProperty.Register("ShadowBrush", typeof(Brush), typeof(XPButton), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+        public static readonly DependencyProperty ShadowColorProperty =
+            DependencyProperty.Register("ShadowColor", typeof(Brush), typeof(XPButton), new PropertyMetadata(Colors.Black));
 
         public double CornerRadius
         {
@@ -72,7 +73,7 @@ namespace XP
         {
             for (int i = 0; i < ShadowBorderCount; i++)
             {
-                var border = new Border() { Background = new SolidColorBrush(Colors.Transparent), BorderBrush = ShadowBrush };
+                var border = new Border() { Background = new SolidColorBrush(Colors.Transparent) };
                 _shadowBorders.Add(border);
                 _shadowGrid.Children.Add(border);
             }
@@ -82,28 +83,37 @@ namespace XP
         void UpdateShadowEffect()
         {
             var lenGap = ShadowLength / ShadowBorderCount;
-            var opacityGap = 0.16 / ShadowBorderCount;
-            var width = Math.Max(0, ActualWidth - ShadowLength);
-            var height = Math.Max(0, ActualHeight - ShadowLength);
+            var alphaArr = BuildShadowAlpha();
+            var width = Math.Max(0, ActualWidth - ShadowLength * 2 );
+            var height = Math.Max(0, ActualHeight - ShadowLength * 2);
             int index = 0;
-
+           
             _shadowBorders.ForEach(o =>
             {
                 o.Width = ActualWidth - lenGap * index;
                 o.Height = ActualHeight - lenGap * index;
-                Debug.WriteLine("shadow " + index.ToString() + " height : " + o.Height.ToString());
                 o.BorderThickness = new Thickness(lenGap);
-                o.CornerRadius = new CornerRadius(CornerRadius < 1 ? o.Width / 2 : CornerRadius);
-                o.Opacity = opacityGap * (index + 1);
+                o.CornerRadius = new CornerRadius(CornerRadius < 1 ? o.Width / 2 : CornerRadius * o.Width/ActualWidth);
+                o.BorderBrush = new SolidColorBrush(Color.FromArgb(alphaArr[index], ShadowColor.R, ShadowColor.G, ShadowColor.B));
                 index++;
             });
-
             _contentPresenter.Width = width;
             _contentPresenter.Height = height;
-            _backgroundBorder.Width = width;
-            _backgroundBorder.Height = height;
-            Debug.WriteLine("background border height : " + height.ToString());
-            _backgroundBorder.CornerRadius = new CornerRadius(CornerRadius < 1 ? width / 2 : CornerRadius);
+            _backgroundBorder.Width = width + lenGap;
+            _backgroundBorder.Height = height + lenGap;
+            _backgroundBorder.Margin = new Thickness(-lenGap / 2);
+            _backgroundBorder.CornerRadius = new CornerRadius(CornerRadius < 1 ? _backgroundBorder.Width / 2 : CornerRadius * _backgroundBorder.Width / ActualWidth);
+        }
+
+        byte[] BuildShadowAlpha()
+        {
+            byte[] alphaArray = new byte[ShadowBorderCount];
+            alphaArray[0] = 60;
+            for(int i=0;i<ShadowBorderCount-1;i++)
+            {
+                alphaArray[i + 1] = (byte)Math.Max(5, alphaArray[i] - Math.Max(20 - 5 * i, 5));
+            }
+            return alphaArray.Reverse().ToArray();
         }
 
         protected override void OnApplyTemplate()

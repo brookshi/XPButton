@@ -8,7 +8,7 @@
     xmlns:xp="using:XP"
     mc:Ignorable="d">
    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <xp:XPButton Height="60" Width="60" Content="asdf" ShadowBorderCount="9" ShadowLength="18" CornerRadius="0.5" ShadowBrush="Black"/>
+    <Grid HorizontalAlignment="Center">
+        <xp:XPButton Height="200" Width="200" Content="asdf" Background="Green" ShadowBorderCount="2" ShadowLength="30" CornerRadius="40" ShadowColor="Black"/>
     </Grid>
 </Page>
