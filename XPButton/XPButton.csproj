@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShadowCalculation.cs" />
     <Compile Include="XPButton.cs" />
     <Content Include="Properties\XPButton.rd.xml" />
   </ItemGroup>
