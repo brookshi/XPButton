@@ -9,6 +9,6 @@
     mc:Ignorable="d">
    
     <Grid HorizontalAlignment="Center">
-        <xp:XPButton Height="200" Width="200" Content="asdf" Background="Green" ShadowBorderCount="2" ShadowLength="30" CornerRadius="40" ShadowColor="Black"/>
+        <xp:XPButton Height="200" Width="200" Content="asdf" Background="Green" ShadowBorderCount="6" ShadowLength="30" CornerRadius="0.5" ShadowColor="Black"/>
     </Grid>
 </Page>
