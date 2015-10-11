@@ -69,6 +69,8 @@
                         <Grid x:Name="ShadowGrid" CacheMode="BitmapCache"/>
                         <Border x:Name="BackgroundBorder" Background="{TemplateBinding Background}"/>
                         <ContentPresenter x:Name="ContentPresenter"
+                                          Background="Transparent"
+                                          Foreground="Transparent"
                                         AutomationProperties.AccessibilityView="Raw" 
                                         BorderBrush="{TemplateBinding BorderBrush}" 
                                         BorderThickness="{TemplateBinding BorderThickness}" 
