@@ -40,14 +40,6 @@ namespace XP
         public static readonly DependencyProperty ShadowLengthProperty =
             DependencyProperty.Register("ShadowLength", typeof(double), typeof(XPButton), new PropertyMetadata(0));
 
-        public int ShadowBorderCount
-        {
-            get { return (int)GetValue(ShadowBorderCountProperty); }
-            set { SetValue(ShadowBorderCountProperty, value); }
-        }
-        public static readonly DependencyProperty ShadowBorderCountProperty =
-            DependencyProperty.Register("ShadowBorderCount", typeof(int), typeof(XPButton), new PropertyMetadata(0));
-
         public Color ShadowColor
         {
             get { return (Color)GetValue(ShadowColorProperty); }
@@ -100,14 +92,14 @@ namespace XP
 
         void UpdateShadowEffect()
         {
-            if (ShadowBorderCount > 0)
+            var width = Math.Max(0, ActualWidth - ShadowLength * 2);
+            var height = Math.Max(0, ActualHeight - ShadowLength * 2);
+            if (ShadowLength > 0)
             {
                 var scale = GetResolutionScale();
                 var count = GetBorderCount();
                 var lenGap = ShadowLength / count;
                 var alphaArr = ShadowCalculation.GetShadowValues(count);
-                var width = Math.Max(0, ActualWidth - ShadowLength * 2);
-                var height = Math.Max(0, ActualHeight - ShadowLength * 2);
                 int index = 0;
 
                 _shadowBorders.ForEach(o =>
@@ -119,14 +111,12 @@ namespace XP
                     o.BorderBrush = new SolidColorBrush(Color.FromArgb((byte)alphaArr[count - index - 1], ShadowColor.R, ShadowColor.G, ShadowColor.B));
                     index++;
                 });
-                _contentPresenter.Width = width + lenGap;
-                _contentPresenter.Height = height + lenGap;
-                _contentPresenter.Margin = new Thickness(0, 0, lenGap / 2.1, lenGap / 2.1);
-                _backgroundBorder.Width = width + lenGap;
-                _backgroundBorder.Height = height + lenGap;
-                _backgroundBorder.Margin = new Thickness(0, 0, lenGap / 2.1, lenGap / 2.1);
             }
 
+            _contentPresenter.Width = width;
+            _contentPresenter.Height = height;
+            _backgroundBorder.Width = width;
+            _backgroundBorder.Height = height;
             _backgroundBorder.CornerRadius = new CornerRadius(GetCornerRadius(_backgroundBorder.Width));
         }
 

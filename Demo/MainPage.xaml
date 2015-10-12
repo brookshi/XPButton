@@ -11,26 +11,25 @@
     <Grid HorizontalAlignment="Center" Background="White">
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <!--<xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="0" ShadowLength="0" CornerRadius="5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="1" ShadowLength="1" CornerRadius="5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="2" ShadowLength="2" CornerRadius="5" ShadowColor="Black"/>-->
-                <xp:XPButton Foreground="White" Height="300" Margin="10,0,0,0" Width="300" Content="win 10" Background="Transparent" ShadowBorderCount="6" ShadowLength="6" CornerRadius="0" ShadowColor="Black"/>
-                <!--<xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="4" ShadowLength="4" CornerRadius="5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="5" ShadowLength="5" CornerRadius="5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowBorderCount="6" ShadowLength="6" CornerRadius="5" ShadowColor="Black"/>-->
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="0" CornerRadius="5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="1" CornerRadius="5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="2" CornerRadius="5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="4" CornerRadius="5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="5" CornerRadius="5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="6" CornerRadius="5" ShadowColor="Black"/>
             </StackPanel>
 
-            <!--<StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0" BorderBrush="Black" BorderThickness="1">
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="0" ShadowLength="0" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="1" ShadowLength="1" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="2" ShadowLength="2" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="3" ShadowLength="3" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="4" ShadowLength="4" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="5" ShadowLength="5" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="White" ShadowBorderCount="6" ShadowLength="6" CornerRadius=".5" ShadowColor="Black"/>
+            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0" BorderBrush="Black" BorderThickness="1">
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="0" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="1" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="2" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="3" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="4" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="5" CornerRadius=".5" ShadowColor="Black"/>
+                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="6" CornerRadius=".5" ShadowColor="Black"/>
             </StackPanel>
 
-            <xp:XPButton HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Height="300" Width="300" Content="+" Background="#2196F3" ShadowBorderCount="6" ShadowLength="30" CornerRadius="5" ShadowColor="Black"/>-->
+            <xp:XPButton HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Height="300" Width="300" Content="+" Background="#2196F3" ShadowLength="30" CornerRadius="5" ShadowColor="Black"/>
         </StackPanel>
     </Grid>
 </Page>

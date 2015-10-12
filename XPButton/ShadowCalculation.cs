@@ -48,7 +48,7 @@ namespace XP
         static int GetMin(int count)
         {
             var max = 180;
-            var min = 100;
+            var min = 140;
             var curr = max;
             for (int i = 1; i < count; i++)
             {
