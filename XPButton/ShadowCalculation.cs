@@ -63,36 +63,19 @@ namespace XP
             new List<int>() { 40 },
         };
 
-        static int GetMinGap(int count)
-        {
-            if (count == 1)
-                return 0;
-            else if (count == 2)
-                return 67;
-            else
-            {
-                var curr = 50;
-                for(int i=3;i<= count;i++)
-                {
-                    curr = curr - 2 * Math.Abs(9 - i);
-                }
-                return Math.Max(curr, 2);
-            }
-        }
-
-        static int GetMax(int count)
+        public static int GetMax(int count)
         {
             var max = 180;
             var min = 100;
             var curr = max;
             for (int i = 1; i < count; i++)
             {
-                curr = curr - 2 * Math.Abs(10 - (count-1) * 2);
+                curr = curr - Math.Max(2, (9 - i) * 2);
             }
             return Math.Max(min, curr);
         }
 
-        static int GetMin(int count)
+        public static int GetMin(int count)
         {
             if (count == 1)
                 throw new ArgumentException();
@@ -104,32 +87,33 @@ namespace XP
             else if (count == 4)
                 return 247;
             else
-                return Math.Max(GetMin(count - 1), 253);
+                return Math.Min(253, 245 + count);
         }
 
-        static int GetGapIncrease(int count)
+        public static double GetGapIncrease(int count)
         {
-            var len = GetMax(count) - GetMin(count);
-            return (len - (count - 1) * GetMinGap(count)) * 2 / (count - 1) * (count - 2);
+            var len = GetMin(count) - GetMax(count);
+            return (len) * 2.0 / ((count - 1) * (count));
         }
 
-        static List<int> GetShadowColors(int count)
+        public static List<int> GetShadowColors(int count)
         {
             List<int> colors = new List<int>();
-            int minGap = GetMinGap(count);
-            int gapIncrease = GetGapIncrease(count);
+            double gapIncrease = GetGapIncrease(count);
             int min = GetMin(count);
-            int last = 0;
+            int curr = min;
             for(int i=0;i<count;i++)
             {
-                colors.Add(min - gapIncrease * count);
+                curr = curr - (int)(gapIncrease * i);
+                colors.Add(255 - curr);
             }
+            colors.Reverse();
             return colors;
         }
 
         public static List<int> GetShadowValues(int shadowCount)
         {
-            return ShadowAlphaValueList[shadowCount-1];
+            return GetShadowColors(shadowCount);// ShadowAlphaValueList[shadowCount-1];
         }
     }
 }
