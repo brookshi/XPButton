@@ -1,16 +1,25 @@
-﻿using System;
+﻿#region License
+//   Copyright 2015 Brook Shi
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License. 
+#endregion
+
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
 using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Documents;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace XP
@@ -56,42 +65,16 @@ namespace XP
             DependencyProperty.Register("CornerRadius", typeof(double), typeof(XPButton), new PropertyMetadata(0));
 
 
-
-
         public XPButton()
         {
             this.DefaultStyleKey = typeof(XPButton);
             Loaded += XPButton_Loaded;
             SizeChanged += XPButton_SizeChanged;
-            Test();
-        }
-
-        void Test()
-        {
-            var maxCount = 30;
-            //for(int i=2;i<=maxCount;i++)
-            //{
-            //    Debug.WriteLine(ShadowCalculation.GetMin(i).ToString());
-            //}
-            //for (int i = 1; i <= maxCount; i++)
-            //{
-            //    Debug.WriteLine(ShadowCalculation.GetMax(i).ToString());
-            //}
-            //for (int i = 1; i <= maxCount; i++)
-            //{
-            //    Debug.WriteLine(ShadowCalculation.GetMinGap(i).ToString());
-            //}
-            //ShadowCalculation.GetShadowColors(10).ForEach(o => Debug.WriteLine(o + ","));
         }
 
         private void XPButton_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             UpdateShadowEffect();
-        }
-
-        int GetBorderCount()
-        {
-            return (int)((double)DisplayInformation.GetForCurrentView().ResolutionScale * ShadowLength / 100 + 0.5);
         }
 
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
@@ -105,64 +88,51 @@ namespace XP
             UpdateShadowEffect();
         }
 
+        int GetBorderCount()
+        {
+            return (int)(GetResolutionScale() * ShadowLength + 0.5);
+        }
+
+        double GetResolutionScale()
+        {
+            return (double)DisplayInformation.GetForCurrentView().ResolutionScale / 100;
+        }
+
         void UpdateShadowEffect()
         {
-            if (ShadowBorderCount < 1)
-                return;
-            var scale = (double)DisplayInformation.GetForCurrentView().ResolutionScale / 100;
-            var count = GetBorderCount();
-            var lenGap = ShadowLength / count;
-            var alphaArr =  ShadowCalculation.GetShadowValues(count);//BuildShadowAlpha();//
-            var width = Math.Max(0, ActualWidth - ShadowLength * 2 );
-            var height = Math.Max(0, ActualHeight - ShadowLength * 2);
-            int index = 0;
-            Color[] colors = { Colors.Red, Colors.Black, Colors.Blue, Colors.Green, Colors.Yellow };
-            _shadowBorders.ForEach(o =>
+            if (ShadowBorderCount > 0)
             {
-                o.Width = ActualWidth - 2 / scale * index;
-                o.Height = ActualHeight - 2 / scale * index;
-                o.BorderThickness = new Thickness(1 / scale);// Math.Max(ShadowLength - lenGap *  index, 0));
-                o.CornerRadius = new CornerRadius(GetCornerRadius(o.Width));
-                o.BorderBrush = new SolidColorBrush(Color.FromArgb((byte)alphaArr[count - index-1], ShadowColor.R, ShadowColor.G, ShadowColor.B));
-                //if(index == _shadowBorders.Count-1)
-                //    o.BorderBrush = new SolidColorBrush(colors[index]);
-                index++;
-            });
-            _contentPresenter.Width = width + lenGap;// + ShadowLength;
-            _contentPresenter.Height = height + lenGap;// + ShadowLength;
-            //_contentPresenter.Margin = new Thickness(0, 0, lenGap/2.1, lenGap/2.1);
-            _backgroundBorder.Width = width + lenGap;// + ShadowLength;
-            _backgroundBorder.Height = height + lenGap;// + ShadowLength;
-            //_backgroundBorder.Margin = new Thickness(0, 0, lenGap / 2.1, lenGap / 2.1);
+                var scale = GetResolutionScale();
+                var count = GetBorderCount();
+                var lenGap = ShadowLength / count;
+                var alphaArr = ShadowCalculation.GetShadowValues(count);
+                var width = Math.Max(0, ActualWidth - ShadowLength * 2);
+                var height = Math.Max(0, ActualHeight - ShadowLength * 2);
+                int index = 0;
+
+                _shadowBorders.ForEach(o =>
+                {
+                    o.Width = ActualWidth - 2 / scale * index;
+                    o.Height = ActualHeight - 2 / scale * index;
+                    o.BorderThickness = new Thickness(1 / scale);
+                    o.CornerRadius = new CornerRadius(GetCornerRadius(o.Width));
+                    o.BorderBrush = new SolidColorBrush(Color.FromArgb((byte)alphaArr[count - index - 1], ShadowColor.R, ShadowColor.G, ShadowColor.B));
+                    index++;
+                });
+                _contentPresenter.Width = width + lenGap;
+                _contentPresenter.Height = height + lenGap;
+                _contentPresenter.Margin = new Thickness(0, 0, lenGap / 2.1, lenGap / 2.1);
+                _backgroundBorder.Width = width + lenGap;
+                _backgroundBorder.Height = height + lenGap;
+                _backgroundBorder.Margin = new Thickness(0, 0, lenGap / 2.1, lenGap / 2.1);
+            }
+
             _backgroundBorder.CornerRadius = new CornerRadius(GetCornerRadius(_backgroundBorder.Width));
         }
 
         double GetCornerRadius(double width)
         {
             return CornerRadius < 1 && CornerRadius > 0 ? width / 2 : CornerRadius * width / ActualWidth;
-        }
-
-        byte[] BuildShadowAlpha()
-        {
-            //int maxAlpha = 150;
-            //int minAplha = 10;
-            //int gap = (maxAlpha - minAplha) / (ShadowBorderCount - 1);
-            //int[] alphaArray = new int[ShadowBorderCount];
-            
-            //for(int i=0;i<ShadowBorderCount;i++)
-            //{
-            //    alphaArray[i] = gap;
-            //}
-            //alphaArray[alphaArray.Length - 1] = minAplha;
-            //return alphaArray;
-
-            byte[] alphaArray = new byte[ShadowBorderCount];
-            alphaArray[0] = 60;
-            for (int i = 0; i < ShadowBorderCount - 1; i++)
-            {
-                alphaArray[i + 1] = (byte)Math.Max(2, alphaArray[i] - Math.Max(20 - 5 * i, 2));
-            }
-            return alphaArray;
         }
 
         protected override void OnApplyTemplate()

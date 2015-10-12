@@ -16,54 +16,36 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XP
 {
     public class ShadowCalculation
     {
-        //179
-        //154, 221 (67)
-        //140, 198, 236 (38)
-        //133, 182, 218, 243 ( 25)
-        //128, 170, 214, 230, 247 (17)
-        //124, 161, 193, 218, 136, 249 (13)
-        //122, 155, 184, 208, 226, 241, 250 (9)
-        //119, 149, 176, 199, 217, 232, 244, 251 (7)
-        //102, 119, 149, 176, 199, 217, 232, 244, 251 (7)
-        //102, 118, 145, 170, 191, 209, 224, 237, 246, 252 (16, 27, 25, 21, 18, 15, 13, 9, 4)
-        static List<List<int>> ShadowAlphaValueList = new List<List<int>>()
+        public static List<int> GetShadowValues(int shadowCount)
         {
-            //new List<int>() { 44 },
-            //new List<int>() { 41, 3 },
-            //new List<int>() { 38, 32, 3 },
-            //new List<int>() { 34, 31, 14, 4 },
-            //new List<int>() { 30, 30, 17, 10, 5 },
-            //new List<int>() { 25, 29, 18, 13, 9, 4 },
+            return GetShadowColors(shadowCount);
+        }
 
-            //new List<int>() { 40 },
-            //new List<int>() { 70, 3 },
-            //new List<int>() { 65, 22, 3 },
-            //new List<int>() { 50, 36, 4, 1 },
-            //new List<int>() { 55, 24, 15, 5, 0 },
-            //new List<int>() { 35, 22, 15, 10, 6, 3 },
+        static List<int> GetShadowColors(int count)
+        {
+            if (count == 1)
+                return new List<int> { 255 - GetMin(1) };
 
-            new List<int>() { 76 },
-            new List<int>() { 41, 3 },
-            new List<int>() { 38, 32, 3 },
-            new List<int>() { 34, 31, 14, 4 },
-            new List<int>() { 127, 85, 41, 25, 3 },
-            new List<int>() { 25, 29, 18, 13, 9, 4 },
-            new List<int>() { 40 },
-            new List<int>() { 40 },
-            new List<int>() { 40 },
-            new List<int>() { 40 },
-            new List<int>() { 40 },
-        };
+            List<int> shadowColors = new List<int>();
+            double gapIncrease = GetGapIncrease(count);
+            int max = GetMax(count);
+            int curr = max;
 
-        public static int GetMax(int count)
+            for (int i = 0; i < count; i++)
+            {
+                curr = curr - (int)(gapIncrease * i);
+                shadowColors.Add(255 - curr);
+            }
+            shadowColors.Reverse();
+            return shadowColors;
+        }
+
+        static int GetMin(int count)
         {
             var max = 180;
             var min = 100;
@@ -75,11 +57,10 @@ namespace XP
             return Math.Max(min, curr);
         }
 
-        public static int GetMin(int count)
+        static int GetMax(int count)
         {
             if (count == 1)
-                throw new ArgumentException();
-
+                return GetMin(1);
             if (count == 2)
                 return 221;
             else if (count == 3)
@@ -90,30 +71,10 @@ namespace XP
                 return Math.Min(253, 245 + count);
         }
 
-        public static double GetGapIncrease(int count)
+        static double GetGapIncrease(int count)
         {
-            var len = GetMin(count) - GetMax(count);
-            return (len) * 2.0 / ((count - 1) * (count));
-        }
-
-        public static List<int> GetShadowColors(int count)
-        {
-            List<int> colors = new List<int>();
-            double gapIncrease = GetGapIncrease(count);
-            int min = GetMin(count);
-            int curr = min;
-            for(int i=0;i<count;i++)
-            {
-                curr = curr - (int)(gapIncrease * i);
-                colors.Add(255 - curr);
-            }
-            colors.Reverse();
-            return colors;
-        }
-
-        public static List<int> GetShadowValues(int shadowCount)
-        {
-            return GetShadowColors(shadowCount);// ShadowAlphaValueList[shadowCount-1];
+            var len = GetMax(count) - GetMin(count);
+            return (len * 2.0) / ((count - 1) * count);
         }
     }
 }
