@@ -59,16 +59,16 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid x:Name="ShadowGrid" CacheMode="BitmapCache"/>
-                        <Border x:Name="BackgroundBorder" Background="{TemplateBinding Background}"/>
+                        <Border x:Name="BackgroundBorder"/>
                         <win2d:CanvasControl x:Name="ShadowCanvas"/>
-                        <RelativePanel>
+                        <RelativePanel x:Name="ContentPanel" Background="{TemplateBinding Background}">
                             <SymbolIcon x:Name="Symbol"
                                         RelativePanel.AlignHorizontalCenterWithPanel="True" 
                                         RelativePanel.AlignVerticalCenterWithPanel="True" 
                                        RelativePanel.LeftOf="ContentPresenter"
                                         Symbol="{TemplateBinding Icon}" 
                                         Foreground="{TemplateBinding Foreground}"/>
-                            <TextBlock x:Name="ContentPresenter" 
+                            <TextBlock  x:Name="ContentPresenter"
                                        Text="{TemplateBinding Content}"
                                        RelativePanel.AlignHorizontalCenterWithPanel="True" 
                                        RelativePanel.AlignVerticalCenterWithPanel="True" 

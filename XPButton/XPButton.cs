@@ -24,13 +24,16 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.Graphics.Effects;
+using Microsoft.Graphics.Canvas;
+using Windows.Foundation;
 
 namespace XP
 {
     public sealed class XPButton : Button
     {
         private Grid _shadowGrid;
-        private ContentPresenter _contentPresenter;
+        private RelativePanel _contentPresenter;
         private CanvasControl _canvas;
         private Border _backgroundBorder;
         private List<Border> _shadowBorders = new List<Border>();
@@ -74,24 +77,27 @@ namespace XP
             this.DefaultStyleKey = typeof(XPButton);
             Loaded += XPButton_Loaded;
             SizeChanged += XPButton_SizeChanged;
-            _canvas.Draw += _canvas_Draw;
         }
 
         private void _canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
+            var canvasCommandList = new CanvasCommandList(sender);
+            using (var ds = canvasCommandList.CreateDrawingSession())
+            {
+                ds.FillRoundedRectangle(new Rect(ShadowLength*0.6, 0, ActualWidth - ShadowLength*1.2, ActualHeight - ShadowLength*0.8), (float)1, (float)1, Color.FromArgb(128, 0, 0, 0));
+            }
+
             var shadowEffect = new Transform2DEffect
             {
                 Source = new Transform2DEffect
-                        {
-                            Source = new ShadowEffect
-                            {
-                                BlurAmount = 2,
-                                ShadowColor = Color.FromArgb(160, 0, 0, 0),
-                                Source = cl
-                            },
-                            //TransformMatrix = Matrix3x2.CreateScale(1.0f, new Vector2((float)(border.ActualWidth / 2), ((float)border.ActualHeight / 2)))
-                        },
-                //TransformMatrix = Matrix3x2.CreateTranslation(0, 1)
+                {
+                    Source = new ShadowEffect
+                    {
+                        BlurAmount = 2,
+                        ShadowColor = Color.FromArgb(180, 0, 0, 0),
+                        Source = canvasCommandList
+                    },
+                },
             };
 
             args.DrawingSession.DrawImage(shadowEffect);
@@ -99,18 +105,22 @@ namespace XP
 
         private void XPButton_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            UpdateShadowEffect();
+            //UpdateShadowEffect();
         }
 
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < GetBorderCount(); i++)
-            {
-                var border = new Border() { Background = new SolidColorBrush(Colors.Transparent) };
-                _shadowBorders.Add(border);
-                _shadowGrid.Children.Add(border);
-            }
-            UpdateShadowEffect();
+            //_contentPresenter.Width = ActualWidth - 2 * ShadowLength / 3;
+            //_contentPresenter.Height = ActualHeight - ShadowLength;
+            _contentPresenter.Margin = new Thickness(ShadowLength / 3, 0, ShadowLength / 3, ShadowLength);
+            _canvas.Draw += _canvas_Draw;
+            //for (int i = 0; i < GetBorderCount(); i++)
+            //{
+            //    var border = new Border() { Background = new SolidColorBrush(Colors.Transparent) };
+            //    _shadowBorders.Add(border);
+            //    _shadowGrid.Children.Add(border);
+            //}
+            // UpdateShadowEffect();
         }
 
         int GetBorderCount()
@@ -162,7 +172,7 @@ namespace XP
         {
             base.OnApplyTemplate();
             _shadowGrid = (Grid)GetTemplateChild("ShadowGrid");
-            //_contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
+            _contentPresenter = (RelativePanel)GetTemplateChild("ContentPanel");
             _backgroundBorder = (Border)GetTemplateChild("BackgroundBorder");
             _canvas = (CanvasControl)GetTemplateChild("ShadowCanvas");
         }
