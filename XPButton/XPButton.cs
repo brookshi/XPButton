@@ -14,8 +14,11 @@
 //   limitations under the License. 
 #endregion
 
+using Microsoft.Graphics.Canvas.Effects;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -28,9 +31,18 @@ namespace XP
     {
         private Grid _shadowGrid;
         private ContentPresenter _contentPresenter;
+        private CanvasControl _canvas;
         private Border _backgroundBorder;
         private List<Border> _shadowBorders = new List<Border>();
 
+
+        public IconElement Icon
+        {
+            get { return (IconElement)GetValue(IconProperty); }
+            set { SetValue(IconProperty, value); }
+        }
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register("Icon", typeof(IconElement), typeof(XPButton), new PropertyMetadata(null));
 
         public double ShadowLength
         {
@@ -62,6 +74,27 @@ namespace XP
             this.DefaultStyleKey = typeof(XPButton);
             Loaded += XPButton_Loaded;
             SizeChanged += XPButton_SizeChanged;
+            _canvas.Draw += _canvas_Draw;
+        }
+
+        private void _canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        {
+            var shadowEffect = new Transform2DEffect
+            {
+                Source = new Transform2DEffect
+                        {
+                            Source = new ShadowEffect
+                            {
+                                BlurAmount = 2,
+                                ShadowColor = Color.FromArgb(160, 0, 0, 0),
+                                Source = cl
+                            },
+                            //TransformMatrix = Matrix3x2.CreateScale(1.0f, new Vector2((float)(border.ActualWidth / 2), ((float)border.ActualHeight / 2)))
+                        },
+                //TransformMatrix = Matrix3x2.CreateTranslation(0, 1)
+            };
+
+            args.DrawingSession.DrawImage(shadowEffect);
         }
 
         private void XPButton_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -107,14 +140,14 @@ namespace XP
                     o.Width = ActualWidth - 2 / scale * index;
                     o.Height = ActualHeight - 2 / scale * index;
                     o.BorderThickness = new Thickness(1 / scale);
-                    o.CornerRadius = new CornerRadius(GetCornerRadius(o.Width));
+                    o.CornerRadius = new CornerRadius(index < 3 ? 0 : 2);// (GetCornerRadius(o.Width));
                     o.BorderBrush = new SolidColorBrush(Color.FromArgb((byte)alphaArr[count - index - 1], ShadowColor.R, ShadowColor.G, ShadowColor.B));
                     index++;
                 });
             }
 
-            _contentPresenter.Width = width;
-            _contentPresenter.Height = height;
+            //_contentPresenter.Width = width;
+            //_contentPresenter.Height = height;
             _backgroundBorder.Width = width;
             _backgroundBorder.Height = height;
             _backgroundBorder.CornerRadius = new CornerRadius(GetCornerRadius(_backgroundBorder.Width));
@@ -129,8 +162,9 @@ namespace XP
         {
             base.OnApplyTemplate();
             _shadowGrid = (Grid)GetTemplateChild("ShadowGrid");
-            _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
+            //_contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
             _backgroundBorder = (Border)GetTemplateChild("BackgroundBorder");
+            _canvas = (CanvasControl)GetTemplateChild("ShadowCanvas");
         }
     }
 }
