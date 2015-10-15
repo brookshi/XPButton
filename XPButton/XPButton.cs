@@ -38,6 +38,9 @@ namespace XP
         private CanvasControl _canvas;
         private Border _backgroundBorder;
         private List<Border> _shadowBorders = new List<Border>();
+        private bool _needPrepareShadow = true;
+        double _shadowWidthRate = 0;
+        double _shadowHeightRate = 0;
 
 
         public IconElement Icon
@@ -80,49 +83,69 @@ namespace XP
             SizeChanged += XPButton_SizeChanged;
         }
 
-        private bool _needPrepareShadow = true;
-        double _shadowWidth = 0;
-        double _shadowHeight = 0;
         private void _canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            var canvasCommandList = new CanvasCommandList(sender);
-            var ds = canvasCommandList.CreateDrawingSession();
+            PrepareShadow(sender, args.DrawingSession);
 
-            var shadowEffect = new Transform2DEffect
-            {
-                Source = new Transform2DEffect
-                {
-                    Source = new ShadowEffect
-                    {
-                        BlurAmount = 2,
-                        ShadowColor = Color.FromArgb(180, 0, 0, 0),
-                        Source = canvasCommandList
-                    },
-                },
-            };
+            DrawShadow(sender, args.DrawingSession);
+        }
 
+        void PrepareShadow(CanvasControl canvasCtrl, CanvasDrawingSession drawSession)
+        {
             if (_needPrepareShadow)
             {
+                var canvasCommandList = new CanvasCommandList(canvasCtrl);
                 _needPrepareShadow = false;
-                ds.FillRoundedRectangle(new Rect(0, 0, ActualWidth, ActualHeight), (float)1, (float)1, Color.FromArgb(255, 255, 0, 0));
-
-                var bound = shadowEffect.GetBounds(args.DrawingSession);
-                _shadowWidth = (bound.Width - ActualWidth) / 2;
-                _shadowHeight = (bound.Height - ActualHeight) / 2;
-                sender.Invalidate();
-            }
-            else
-            {
-                _contentPresenter.Margin = new Thickness(_shadowWidth, 0, _shadowWidth, _shadowHeight);
-
+                using (var ds = canvasCommandList.CreateDrawingSession())
                 {
-                    ds.FillRoundedRectangle(new Rect(_shadowWidth, 0, ActualWidth - _shadowWidth*2, ActualHeight-_shadowHeight), (float)1, (float)1, Color.FromArgb(128, 0, 0, 0));
+                    ds.FillRoundedRectangle(new Rect(0, 0, ActualWidth, ActualHeight), (float)1, (float)1, Color.FromArgb(76, 0, 0, 0));
                 }
-                //ds.Dispose();
-                
-            }
 
-            args.DrawingSession.DrawImage(shadowEffect);
+                var topShadowEffect = new Transform2DEffect
+                {
+                    Source = new Transform2DEffect
+                    {
+                        Source = new ShadowEffect
+                        {
+                            BlurAmount = 10,
+                            ShadowColor = Color.FromArgb(180, 0, 0, 0),
+                            Source = canvasCommandList
+                        },
+                    },
+                };
+                var bound = topShadowEffect.GetBounds(drawSession);
+                _shadowWidthRate = (bound.Width - ActualWidth) / 2 / bound.Width;
+                _shadowHeightRate = (bound.Height - ActualHeight) / 2 / bound.Height;
+                canvasCtrl.Invalidate();
+            }
+        }
+
+        int _deep = 1;
+        void DrawShadow(CanvasControl canvasCtrl, CanvasDrawingSession drawSession)
+        {
+            if (!_needPrepareShadow)
+            {
+                var canvasCommandList = new CanvasCommandList(canvasCtrl);
+                using (var ds = canvasCommandList.CreateDrawingSession())
+                {
+                    ds.FillRoundedRectangle(new Rect(_shadowWidthRate * ActualWidth, 0, ActualWidth * (1 - _shadowWidthRate * 2), ActualHeight * ( 1 - _shadowHeightRate)), (float)1, (float)1, Color.FromArgb(76, 0, 0, 0));
+                }
+
+                var shadowEffect = new Transform2DEffect
+                {
+                    Source = new Transform2DEffect
+                    {
+                        Source = new ShadowEffect
+                        {
+                            BlurAmount = 19,
+                            ShadowColor = Color.FromArgb(76, 0, 0, 0),
+                            Source = canvasCommandList
+                        },
+                    },
+                };
+                _contentPresenter.Margin = new Thickness(_shadowWidthRate, 0, _shadowWidthRate, _shadowHeightRate);
+                drawSession.DrawImage(shadowEffect);
+            }
         }
 
         private void XPButton_SizeChanged(object sender, SizeChangedEventArgs e)

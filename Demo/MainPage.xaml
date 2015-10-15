@@ -10,7 +10,7 @@
    
     <Grid HorizontalAlignment="Center" Background="White">
         <StackPanel>
-            <xp:XPButton Foreground="White" Height="40" Margin="10,10,0,0" Width="80" Content="win 10" Background="White" ShadowLength="3" CornerRadius="0" ShadowColor="Black"/>
+            <xp:XPButton Foreground="White" Height="100" Margin="10,10,0,0" Width="100" Content="win 10" Background="Transparent" ShadowLength="3" CornerRadius="0" ShadowColor="Black"/>
             <!--<StackPanel Orientation="Horizontal">
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="0" CornerRadius="0" ShadowColor="Black"/>
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="1" CornerRadius="0" ShadowColor="Black"/>
