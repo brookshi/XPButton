@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Media;
 using Windows.Graphics.Effects;
 using Microsoft.Graphics.Canvas;
 using Windows.Foundation;
+using System.Diagnostics;
 
 namespace XP
 {
@@ -79,13 +80,13 @@ namespace XP
             SizeChanged += XPButton_SizeChanged;
         }
 
+        private bool _needPrepareShadow = true;
+        double _shadowWidth = 0;
+        double _shadowHeight = 0;
         private void _canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
             var canvasCommandList = new CanvasCommandList(sender);
-            using (var ds = canvasCommandList.CreateDrawingSession())
-            {
-                ds.FillRoundedRectangle(new Rect(ShadowLength*0.6, 0, ActualWidth - ShadowLength*1.2, ActualHeight - ShadowLength*0.8), (float)1, (float)1, Color.FromArgb(128, 0, 0, 0));
-            }
+            var ds = canvasCommandList.CreateDrawingSession();
 
             var shadowEffect = new Transform2DEffect
             {
@@ -99,6 +100,27 @@ namespace XP
                     },
                 },
             };
+
+            if (_needPrepareShadow)
+            {
+                _needPrepareShadow = false;
+                ds.FillRoundedRectangle(new Rect(0, 0, ActualWidth, ActualHeight), (float)1, (float)1, Color.FromArgb(255, 255, 0, 0));
+
+                var bound = shadowEffect.GetBounds(args.DrawingSession);
+                _shadowWidth = (bound.Width - ActualWidth) / 2;
+                _shadowHeight = (bound.Height - ActualHeight) / 2;
+                sender.Invalidate();
+            }
+            else
+            {
+                _contentPresenter.Margin = new Thickness(_shadowWidth, 0, _shadowWidth, _shadowHeight);
+
+                {
+                    ds.FillRoundedRectangle(new Rect(_shadowWidth, 0, ActualWidth - _shadowWidth*2, ActualHeight-_shadowHeight), (float)1, (float)1, Color.FromArgb(128, 0, 0, 0));
+                }
+                //ds.Dispose();
+                
+            }
 
             args.DrawingSession.DrawImage(shadowEffect);
         }
