@@ -62,6 +62,7 @@
                                     Height="{TemplateBinding Height}"
                                     HorizontalAlignment="Stretch"
                                     Orientation="Horizontal"
+                                    Padding="{TemplateBinding Padding}" 
                                     Background="{TemplateBinding Background}">
                             <SymbolIcon x:Name="Symbol"
                                         Symbol="{TemplateBinding Icon}" 
@@ -70,6 +71,7 @@
                             <TextBlock  x:Name="ContentPresenter"
                                         Text="{TemplateBinding Content}"
                                         VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
                                         AutomationProperties.AccessibilityView="Raw"  />
                             <!--<ContentPresenter x:Name="ContentPresenter"
                                               RelativePanel.RightOf="Symbol"
