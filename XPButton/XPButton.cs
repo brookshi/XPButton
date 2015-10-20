@@ -57,22 +57,41 @@ namespace XP
         public static readonly DependencyProperty IconMarginProperty =
             DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(0, 0, 5, 0)));
 
+
+        public Action<IconPosition> IconPositionTrigger { get; set; }
+
+        private IconPosition _iconPosition = IconPosition.Left;
+
         public IconPosition IconPosition
         {
-            get { return (IconPosition)GetValue(IconPositionProperty); }
-            set { SetValue(IconPositionProperty, value); }
+            get { return _iconPosition; }
+            set
+            {
+                if(_iconPosition != value)
+                {
+                    _iconPosition = value;
+                    if(IconPositionTrigger != null)
+                    {
+                        IconPositionTrigger(_iconPosition);
+                    }
+                }
+            }
         }
-        public static readonly DependencyProperty IconPositionProperty =
-            DependencyProperty.Register("IconPosition", typeof(IconPosition), typeof(XPButton), new PropertyMetadata(IconPosition.Left));
+        //{
+        //    get { return (IconPosition)GetValue(IconPositionProperty); }
+        //    set { SetValue(IconPositionProperty, value); }
+        //}
+        //public static readonly DependencyProperty IconPositionProperty =
+        //    DependencyProperty.Register("IconPosition", typeof(IconPosition), typeof(XPButton), new PropertyMetadata(IconPosition.Left));
 
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            AdjustContentPresentAlign(finalSize);
+            AdjustContentPresenterAlign(finalSize);
             return base.ArrangeOverride(finalSize);
         }
 
-        void AdjustContentPresentAlign(Size finalSize)
+        void AdjustContentPresenterAlign(Size finalSize)
         {
             if (finalSize.Width < GetDesiredWidth() && IconPosition == IconPosition.Left)
             {
@@ -102,6 +121,7 @@ namespace XP
 
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
+            IconPosition = IconPosition.Right;
         }
 
         double GetCornerRadius(double width)

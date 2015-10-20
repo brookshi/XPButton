@@ -56,6 +56,17 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
+                            <VisualStateGroup x:Name="IconPositionState">
+                                <VisualState x:Name="LeftIconPosition"/>
+                                <VisualState x:Name="RightIconPosition">
+                                    <VisualState.StateTriggers>
+                                        <local:IconPositionTrigger Target="{Binding RelativeSource={RelativeSource TemplatedParent}}" IconPosition="Right"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.Foreground" Value="Red"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <RelativePanel x:Name="VisualPanel" 
                                     Width="{TemplateBinding Width}"
