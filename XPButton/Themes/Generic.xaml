@@ -57,34 +57,33 @@
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <StackPanel x:Name="ContentPanel" 
+                        <RelativePanel x:Name="VisualPanel" 
                                     Width="{TemplateBinding Width}"
                                     Height="{TemplateBinding Height}"
                                     HorizontalAlignment="Stretch"
-                                    Orientation="Horizontal"
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
                                     Padding="{TemplateBinding Padding}" 
                                     Background="{TemplateBinding Background}">
                             <SymbolIcon x:Name="Symbol"
                                         Symbol="{TemplateBinding Icon}" 
-                                        VerticalAlignment="Center"
+                                        Margin="{TemplateBinding IconMargin}"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.AlignVerticalCenterWithPanel="True"
                                         Foreground="{TemplateBinding Foreground}"/>
-                            <TextBlock  x:Name="ContentPresenter"
+                            <!--<TextBlock  x:Name="Label"
                                         Text="{TemplateBinding Content}"
                                         VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        AutomationProperties.AccessibilityView="Raw"  />
-                            <!--<ContentPresenter x:Name="ContentPresenter"
-                                              RelativePanel.RightOf="Symbol"
+                                        RelativePanel.RightOf="Symbol"
+                                        RelativePanel.AlignHorizontalCenterWithPanel="True" />-->
+                            <ContentPresenter x:Name="ContentPresenter"
                                             AutomationProperties.AccessibilityView="Raw" 
-                                            BorderBrush="{TemplateBinding BorderBrush}" 
-                                            BorderThickness="{TemplateBinding BorderThickness}" 
+                                            RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                             ContentTemplate="{TemplateBinding ContentTemplate}" 
                                             ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                            Content="{TemplateBinding Content}" 
-                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                            Padding="{TemplateBinding Padding}" 
-                                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>-->
-                        </StackPanel>
+                                            Content="{TemplateBinding Content}" />
+                        </RelativePanel>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
