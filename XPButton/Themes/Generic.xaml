@@ -60,7 +60,7 @@
                                 <VisualState x:Name="LeftIconPosition"/>
                                 <VisualState x:Name="RightIconPosition">
                                     <VisualState.StateTriggers>
-                                        <local:IconPositionTrigger Target="{Binding RelativeSource={RelativeSource TemplatedParent}}" IconPosition="Right"/>
+                                        <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="Right"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="ContentPresenter.Foreground" Value="Red"/>

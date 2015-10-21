@@ -10,7 +10,7 @@
 
     <Grid HorizontalAlignment="Center" >
         <StackPanel>
-            <xp:XPButton Foreground="White" Content="win 10" Width="300" Height="100"  Background="Blue" CornerRadius="0" />
+            <xp:XPButton x:Name="XPB" Foreground="White" Click="XPButton_Click" Content="win 10" Width="300" Height="100" IconPosition="Right"  Background="Blue" CornerRadius="0" />
             <!--<StackPanel Orientation="Horizontal">
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="0" CornerRadius="0" ShadowColor="Black"/>
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="1" CornerRadius="0" ShadowColor="Black"/>

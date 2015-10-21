@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,33 +10,20 @@ namespace XP
 {
     public class IconPositionTrigger : StateTriggerBase
     {
-        private XPButton _button;
-        private IconPosition _iconPosition;
+        public IconPosition TriggerIconPosition { get; set; }
 
-        public XPButton Target
+        public IconPosition ButtonIconPosition
         {
-            get { return _button; }
-            set
-            {
-                _button = value;
-                _button.IconPositionTrigger = iconPosition =>
-                {
-                    IconPosition = iconPosition;
-                };
-            }
+            get { return (IconPosition)GetValue(ButtonIconPositionProperty); }
+            set { SetValue(ButtonIconPositionProperty, value); }
         }
+        public static readonly DependencyProperty ButtonIconPositionProperty =
+                DependencyProperty.Register("ButtonIconPosition", typeof(IconPosition), typeof(IconPositionTrigger), new PropertyMetadata(IconPosition.Left, (s, e)=> {
+                var trigger = s as IconPositionTrigger;
+                if (trigger == null)
+                    return;
 
-        public IconPosition IconPosition
-        {
-            get { return _iconPosition; }
-            set
-            {
-                if(_iconPosition != value)
-                {
-                    SetActive(true);
-                    _iconPosition = value;
-                }
-            }
-        }
+                trigger.SetActive(trigger.TriggerIconPosition == (IconPosition)e.NewValue);
+            }));
     }
 }
