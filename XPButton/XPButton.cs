@@ -29,17 +29,25 @@ namespace XP
 {
     public sealed class XPButton : Button
     {
-        private SymbolIcon _symbol;
+        private TextBlock _symbol;
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
 
-        public IconElement Icon
+        public Symbol Icon
         {
-            get { return (IconElement)GetValue(IconProperty); }
+            get { return (Symbol)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(IconElement), typeof(XPButton), new PropertyMetadata(null));
+            DependencyProperty.Register("Icon", typeof(Symbol), typeof(XPButton), new PropertyMetadata(null));
+
+        public int IconSize
+        {
+            get { return (int)GetValue(IconSizeProperty); }
+            set { SetValue(IconSizeProperty, value); }
+        }
+        public static readonly DependencyProperty IconSizeProperty =
+            DependencyProperty.Register("IconSize", typeof(int), typeof(XPButton), new PropertyMetadata(10));
 
         public double CornerRadius
         {
@@ -114,7 +122,7 @@ namespace XP
         {
             base.OnApplyTemplate();
             _visualPanel = (RelativePanel)GetTemplateChild("VisualPanel");
-            _symbol = (SymbolIcon)GetTemplateChild("Symbol");
+            _symbol = (TextBlock)GetTemplateChild("Symbol");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
         }
     }

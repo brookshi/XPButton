@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XP">
 
+    <local:SymbolToTextConverter x:Key="SymbolConverter"/>
+
     <Style TargetType="local:XPButton">
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -63,7 +65,8 @@
                                         <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="Right"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
-                                        <Setter Target="ContentPresenter.Foreground" Value="Red"/>
+                                        <Setter Target="Symbol.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                                        <Setter Target="Symbol.(RelativePanel.AlignRightWithPanel)" Value="True"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -76,24 +79,31 @@
                                     BorderThickness="{TemplateBinding BorderThickness}" 
                                     Padding="{TemplateBinding Padding}" 
                                     Background="{TemplateBinding Background}">
-                            <SymbolIcon x:Name="Symbol"
+                            <!--<SymbolIcon x:Name="Symbol"
                                         Symbol="{TemplateBinding Icon}" 
                                         Margin="{TemplateBinding IconMargin}"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalAlignment="Stretch"
+                                        Width="Auto"
+                                        Height="Auto"
+                                        RelativePanel.AlignLeftWithPanel="True"
+                                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                                        Foreground="{TemplateBinding Foreground}"/>-->
+                            <TextBlock x:Name="Symbol"
+                                        FontFamily="Segoe UI Symbol"
+                                        Margin="{TemplateBinding IconMargin}"
+                                        FontSize="{TemplateBinding IconSize}"
+                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon, Converter={StaticResource ResourceKey=SymbolConverter}}"
                                         RelativePanel.AlignLeftWithPanel="True"
                                         RelativePanel.AlignVerticalCenterWithPanel="True"
                                         Foreground="{TemplateBinding Foreground}"/>
-                            <!--<TextBlock  x:Name="Label"
-                                        Text="{TemplateBinding Content}"
-                                        VerticalAlignment="Center"
-                                        RelativePanel.RightOf="Symbol"
-                                        RelativePanel.AlignHorizontalCenterWithPanel="True" />-->
                             <ContentPresenter x:Name="ContentPresenter"
-                                            AutomationProperties.AccessibilityView="Raw" 
-                                            RelativePanel.AlignHorizontalCenterWithPanel="True" 
-                                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                            ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                            Content="{TemplateBinding Content}" />
+                                        AutomationProperties.AccessibilityView="Raw" 
+                                        RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                                        RelativePanel.AlignVerticalCenterWithPanel="True"
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                        ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                        Content="{TemplateBinding Content}" />
                         </RelativePanel>
                     </Grid>
                 </ControlTemplate>
