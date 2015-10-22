@@ -29,7 +29,8 @@ namespace XP
 {
     public sealed class XPButton : Button
     {
-        private TextBlock _symbol;
+        private SymbolIcon _symbol;
+        private Viewbox _symbolView;
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
 
@@ -41,21 +42,13 @@ namespace XP
         public static readonly DependencyProperty IconProperty =
             DependencyProperty.Register("Icon", typeof(Symbol), typeof(XPButton), new PropertyMetadata(null));
 
-        public int IconSize
+        public double IconSize
         {
-            get { return (int)GetValue(IconSizeProperty); }
+            get { return (double)GetValue(IconSizeProperty); }
             set { SetValue(IconSizeProperty, value); }
         }
         public static readonly DependencyProperty IconSizeProperty =
-            DependencyProperty.Register("IconSize", typeof(int), typeof(XPButton), new PropertyMetadata(10));
-
-        public double CornerRadius
-        {
-            get { return (double)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
-        }
-        public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(double), typeof(XPButton), new PropertyMetadata(0));
+            DependencyProperty.Register("IconSize", typeof(double), typeof(XPButton), new PropertyMetadata(20));
 
         public Thickness IconMargin
         {
@@ -73,19 +66,41 @@ namespace XP
         public static readonly DependencyProperty IconPositionProperty =
             DependencyProperty.Register("IconPosition", typeof(IconPosition), typeof(XPButton), new PropertyMetadata(IconPosition.Left));
 
-     
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(XPButton), new PropertyMetadata(new CornerRadius(0)));
+
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            AdjustContentPresenterAlign(finalSize);
+            AdjustContentPresenter(finalSize);
             return base.ArrangeOverride(finalSize);
         }
 
-        void AdjustContentPresenterAlign(Size finalSize)
+        #region adjust content
+
+        void AdjustContentPresenter(Size finalSize)
         {
-            if (finalSize.Width < GetDesiredWidth() && IconPosition == IconPosition.Left)
+            switch(IconPosition)
             {
-                RelativePanel.SetRightOf(_contentPresenter, "Symbol");
+                case IconPosition.Left:
+                    AdjustContentPresenterForLeft(finalSize);
+                    break;
+                case IconPosition.Right:
+                    AdjustContentPresenterForRight(finalSize);
+                    break;
+            }
+        }
+
+        void AdjustContentPresenterForLeft(Size finalSize)
+        {
+            if (finalSize.Width < GetDesiredWidth())
+            {
+                RelativePanel.SetRightOf(_contentPresenter, "SymbolView");
                 RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, false);
             }
             else
@@ -95,13 +110,29 @@ namespace XP
             }
         }
 
+        void AdjustContentPresenterForRight(Size finalSize)
+        {
+            if (finalSize.Width < GetDesiredWidth())
+            {
+                RelativePanel.SetLeftOf(_contentPresenter, "SymbolView");
+                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, false);
+            }
+            else
+            {
+                RelativePanel.SetLeftOf(_contentPresenter, "");
+                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, true);
+            }
+        }
+
         double GetDesiredWidth()
         {
             var buttonPaddingWidth = Padding.Left + Padding.Right;
             var iconMarginWidth = IconMargin.Left + IconMargin.Right;
 
-            return buttonPaddingWidth + iconMarginWidth + _symbol.DesiredSize.Width + _contentPresenter.DesiredSize.Width;
+            return buttonPaddingWidth + iconMarginWidth + _symbolView.DesiredSize.Width + _contentPresenter.DesiredSize.Width;
         }
+
+        #endregion
 
         public XPButton()
         {
@@ -113,16 +144,12 @@ namespace XP
         {
         }
 
-        double GetCornerRadius(double width)
-        {
-            return CornerRadius < 1 && CornerRadius > 0 ? width / 2 : CornerRadius * width / ActualWidth;
-        }
-
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             _visualPanel = (RelativePanel)GetTemplateChild("VisualPanel");
-            _symbol = (TextBlock)GetTemplateChild("Symbol");
+            _symbol = (SymbolIcon)GetTemplateChild("Symbol");
+            _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
         }
     }

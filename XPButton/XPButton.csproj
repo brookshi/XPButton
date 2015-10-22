@@ -116,7 +116,6 @@
     <Compile Include="Enums.cs" />
     <Compile Include="IconPositionTrigger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SymbolToTextConverter.cs" />
     <Compile Include="XPButton.cs" />
     <Content Include="Properties\XPButton.rd.xml" />
   </ItemGroup>

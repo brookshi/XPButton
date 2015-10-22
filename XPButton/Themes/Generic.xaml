@@ -3,8 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XP">
 
-    <local:SymbolToTextConverter x:Key="SymbolConverter"/>
-
     <Style TargetType="local:XPButton">
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -59,52 +57,92 @@
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="IconPositionState">
-                                <VisualState x:Name="LeftIconPosition"/>
-                                <VisualState x:Name="RightIconPosition">
+                                <VisualState x:Name="LeftIcon"/>
+                                <VisualState x:Name="RightIcon">
                                     <VisualState.StateTriggers>
                                         <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="Right"/>
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
-                                        <Setter Target="Symbol.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
-                                        <Setter Target="Symbol.(RelativePanel.AlignRightWithPanel)" Value="True"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignRightWithPanel)" Value="True"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="TopIcon">
+                                    <VisualState.StateTriggers>
+                                        <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="Top"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.Below)" Value="SymbolView"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="BottomIcon">
+                                    <VisualState.StateTriggers>
+                                        <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="Bottom"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.Above)" Value="SymbolView"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="NoIcon">
+                                    <VisualState.StateTriggers>
+                                        <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="NoIcon"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="SymbolView.Visibility" Value="Collapsed"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="OnlyIcon">
+                                    <VisualState.StateTriggers>
+                                        <local:IconPositionTrigger ButtonIconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition, Mode=TwoWay}" TriggerIconPosition="OnlyIcon"/>
+                                    </VisualState.StateTriggers>
+                                    <VisualState.Setters>
+                                        <Setter Target="ContentPresenter.Visibility" Value="Collapsed"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                                        <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <RelativePanel x:Name="VisualPanel" 
-                                    Width="{TemplateBinding Width}"
-                                    Height="{TemplateBinding Height}"
-                                    HorizontalAlignment="Stretch"
-                                    BorderBrush="{TemplateBinding BorderBrush}" 
-                                    BorderThickness="{TemplateBinding BorderThickness}" 
-                                    Padding="{TemplateBinding Padding}" 
-                                    Background="{TemplateBinding Background}">
-                            <!--<SymbolIcon x:Name="Symbol"
-                                        Symbol="{TemplateBinding Icon}" 
-                                        Margin="{TemplateBinding IconMargin}"
-                                        VerticalAlignment="Stretch"
+                        <Border CornerRadius="{TemplateBinding CornerRadius}"
+                                        Background="{TemplateBinding Background}"
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}">
+                            <RelativePanel x:Name="VisualPanel" 
                                         HorizontalAlignment="Stretch"
-                                        Width="Auto"
-                                        Height="Auto"
-                                        RelativePanel.AlignLeftWithPanel="True"
-                                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                                        Foreground="{TemplateBinding Foreground}"/>-->
-                            <TextBlock x:Name="Symbol"
-                                        FontFamily="Segoe UI Symbol"
-                                        Margin="{TemplateBinding IconMargin}"
-                                        FontSize="{TemplateBinding IconSize}"
-                                        Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon, Converter={StaticResource ResourceKey=SymbolConverter}}"
-                                        RelativePanel.AlignLeftWithPanel="True"
-                                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                                        Foreground="{TemplateBinding Foreground}"/>
-                            <ContentPresenter x:Name="ContentPresenter"
-                                        AutomationProperties.AccessibilityView="Raw" 
-                                        RelativePanel.AlignHorizontalCenterWithPanel="True" 
-                                        RelativePanel.AlignVerticalCenterWithPanel="True"
-                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                        ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                        Content="{TemplateBinding Content}" />
-                        </RelativePanel>
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        Padding="{TemplateBinding Padding}" >
+                                <Viewbox
+                                    x:Name="SymbolView"
+                                    Margin="{TemplateBinding IconMargin}"
+                                    Width="{TemplateBinding IconSize}"
+                                    Height="{TemplateBinding IconSize}"
+                                    VerticalAlignment="Stretch"
+                                    RelativePanel.AlignLeftWithPanel="True"
+                                    RelativePanel.AlignVerticalCenterWithPanel="True">
+                                    <SymbolIcon x:Name="Symbol"
+                                            Symbol="{TemplateBinding Icon}" 
+                                            Foreground="{TemplateBinding Foreground}"/>
+                                </Viewbox>
+                                <ContentPresenter x:Name="ContentPresenter"
+                                            AutomationProperties.AccessibilityView="Raw" 
+                                            RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                                            RelativePanel.AlignVerticalCenterWithPanel="True"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                            ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                            Content="{TemplateBinding Content}" />
+                            </RelativePanel>
+                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

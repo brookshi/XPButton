@@ -26,10 +26,5 @@ namespace Demo
         {
             this.InitializeComponent();
         }
-
-        private void XPButton_Click(object sender, RoutedEventArgs e)
-        {
-            XPB.IconPosition = XPB.IconPosition == XP.IconPosition.Left ? XP.IconPosition.Right : XP.IconPosition.Left;
-        }
     }
 }
