@@ -18,9 +18,9 @@
             <xp:XPButton Margin="10" Foreground="White" FontSize="30" IconSize="30" Content="win 10" Icon="Clock" IconPosition="Left"  Background="Blue" CornerRadius="10"/>
             <xp:XPButton Margin="10" Foreground="White" FontSize="30" IconSize="30" Content="win 10" Icon="Add" IconPosition="Right"  Background="Green" CornerRadius="10" />
             <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Admin" IconPosition="Top"  Background="Gray" CornerRadius="10" />
-            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Delete" IconPosition="Bottom"  Background="Red" CornerRadius="10" />
+            <xp:XPButton Margin="10" IconMargin="0, 0, 0, 4" ContentMargin="0, 0, 0, 4" Foreground="White" FontSize="16" IconSize="45" Height="90" Width="90" Content="win 10" Icon="Delete" IconPosition="Bottom"  Background="Red" CornerRadius="10" />
             <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Accept" IconPosition="NoIcon"  Background="Blue" CornerRadius="10" />
-            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Like" IconPosition="OnlyIcon"  Background="Blue" CornerRadius="10" />
+            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Like" IconPosition="OnlyIcon"  Background="Blue" CornerRadius="40" BorderBrush="Gray" BorderThickness="2" />
             <!--<StackPanel Orientation="Horizontal">
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="0" CornerRadius="0" ShadowColor="Black"/>
                 <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="1" CornerRadius="0" ShadowColor="Black"/>

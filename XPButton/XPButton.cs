@@ -56,7 +56,7 @@ namespace XP
             set { SetValue(IconMarginProperty, value); }
         }
         public static readonly DependencyProperty IconMarginProperty =
-            DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(0, 0, 5, 0)));
+            DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(5, 0, 5, 0)));
 
         public IconPosition IconPosition
         {
@@ -73,6 +73,15 @@ namespace XP
         }
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(XPButton), new PropertyMetadata(new CornerRadius(0)));
+
+        public Thickness ContentMargin
+        {
+            get { return (Thickness)GetValue(ContentMarginProperty); }
+            set { SetValue(ContentMarginProperty, value); }
+        }
+        public static readonly DependencyProperty ContentMarginProperty =
+            DependencyProperty.Register("ContentMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(0)));
+
 
 
         protected override Size ArrangeOverride(Size finalSize)

@@ -115,13 +115,11 @@
                         </VisualStateManager.VisualStateGroups>
                         <Border CornerRadius="{TemplateBinding CornerRadius}"
                                         Background="{TemplateBinding Background}"
-                                        Width="{TemplateBinding Width}"
-                                        Height="{TemplateBinding Height}">
-                            <RelativePanel x:Name="VisualPanel" 
-                                        HorizontalAlignment="Stretch"
                                         BorderBrush="{TemplateBinding BorderBrush}" 
                                         BorderThickness="{TemplateBinding BorderThickness}" 
-                                        Padding="{TemplateBinding Padding}" >
+                                        Width="{TemplateBinding Width}"
+                                        Height="{TemplateBinding Height}">
+                            <RelativePanel x:Name="VisualPanel"  Padding="{TemplateBinding Padding}">
                                 <Viewbox
                                     x:Name="SymbolView"
                                     Margin="{TemplateBinding IconMargin}"
@@ -135,12 +133,13 @@
                                             Foreground="{TemplateBinding Foreground}"/>
                                 </Viewbox>
                                 <ContentPresenter x:Name="ContentPresenter"
-                                            AutomationProperties.AccessibilityView="Raw" 
-                                            RelativePanel.AlignHorizontalCenterWithPanel="True" 
-                                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                                            ContentTemplate="{TemplateBinding ContentTemplate}" 
-                                            ContentTransitions="{TemplateBinding ContentTransitions}" 
-                                            Content="{TemplateBinding Content}" />
+                                    Margin="{TemplateBinding ContentMargin}" 
+                                    AutomationProperties.AccessibilityView="Raw" 
+                                    RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                                    RelativePanel.AlignVerticalCenterWithPanel="True"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                    ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                    Content="{TemplateBinding Content}" />
                             </RelativePanel>
                         </Border>
                     </Grid>
