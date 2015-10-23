@@ -128,8 +128,8 @@
                                     VerticalAlignment="Stretch"
                                     RelativePanel.AlignLeftWithPanel="True"
                                     RelativePanel.AlignVerticalCenterWithPanel="True">
-                                    <SymbolIcon x:Name="Symbol"
-                                            Symbol="{TemplateBinding Icon}" 
+                                    <ContentControl x:Name="Symbol"
+                                            Content="{TemplateBinding Icon}" 
                                             Foreground="{TemplateBinding Foreground}"/>
                                 </Viewbox>
                                 <ContentPresenter x:Name="ContentPresenter"

@@ -111,6 +111,10 @@
     <None Include="Demo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\facebook.png" />
+    <Content Include="Assets\github.png" />
+    <Content Include="Assets\gplus.png" />
+    <Content Include="Assets\twitter.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

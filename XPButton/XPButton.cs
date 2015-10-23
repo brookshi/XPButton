@@ -29,18 +29,18 @@ namespace XP
 {
     public sealed class XPButton : Button
     {
-        private SymbolIcon _symbol;
+        private ContentControl _symbol;
         private Viewbox _symbolView;
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
 
-        public Symbol Icon
+        public IconElement Icon
         {
-            get { return (Symbol)GetValue(IconProperty); }
+            get { return (IconElement)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(Symbol), typeof(XPButton), new PropertyMetadata(null));
+            DependencyProperty.Register("Icon", typeof(IconElement), typeof(XPButton), new PropertyMetadata(new SymbolIcon(Symbol.Read)));
 
         public double IconSize
         {
@@ -157,7 +157,7 @@ namespace XP
         {
             base.OnApplyTemplate();
             _visualPanel = (RelativePanel)GetTemplateChild("VisualPanel");
-            _symbol = (SymbolIcon)GetTemplateChild("Symbol");
+            _symbol = (ContentControl)GetTemplateChild("Symbol");
             _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
         }
