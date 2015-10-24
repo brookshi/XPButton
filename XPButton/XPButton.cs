@@ -34,13 +34,15 @@ namespace XP
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
 
+        #region property
+
         public IconElement Icon
         {
             get { return (IconElement)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
         public static readonly DependencyProperty IconProperty =
-            DependencyProperty.Register("Icon", typeof(IconElement), typeof(XPButton), new PropertyMetadata(new SymbolIcon(Symbol.Read)));
+            DependencyProperty.Register("Icon", typeof(IconElement), typeof(XPButton), null);
 
         public double IconSize
         {
@@ -56,7 +58,7 @@ namespace XP
             set { SetValue(IconMarginProperty, value); }
         }
         public static readonly DependencyProperty IconMarginProperty =
-            DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(5, 0, 5, 0)));
+            DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(3, 0, 3, 0)));
 
         public IconPosition IconPosition
         {
@@ -65,6 +67,14 @@ namespace XP
         }
         public static readonly DependencyProperty IconPositionProperty =
             DependencyProperty.Register("IconPosition", typeof(IconPosition), typeof(XPButton), new PropertyMetadata(IconPosition.Left));
+
+        public Brush IconForeground
+        {
+            get { return (Brush)GetValue(IconForegroundProperty); }
+            set { SetValue(IconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty IconForegroundProperty =
+            DependencyProperty.Register("IconForeground", typeof(Brush), typeof(XPButton), null);
 
         public CornerRadius CornerRadius
         {
@@ -82,19 +92,109 @@ namespace XP
         public static readonly DependencyProperty ContentMarginProperty =
             DependencyProperty.Register("ContentMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(0)));
 
-
-
-        protected override Size ArrangeOverride(Size finalSize)
+        public Brush PointerOverBackground
         {
-            AdjustContentPresenter(finalSize);
-            return base.ArrangeOverride(finalSize);
+            get { return (Brush)GetValue(PointerOverBackgroundProperty); }
+            set { SetValue(PointerOverBackgroundProperty, value); }
         }
+        public static readonly DependencyProperty PointerOverBackgroundProperty =
+            DependencyProperty.Register("PointerOverBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PointerOverTextForeground
+        {
+            get { return (Brush)GetValue(PointerOverTextForegroundProperty); }
+            set { SetValue(PointerOverTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty PointerOverTextForegroundProperty =
+            DependencyProperty.Register("PointerOverTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PointerOverIconForeground
+        {
+            get { return (Brush)GetValue(PointerOverIconForegroundProperty); }
+            set { SetValue(PointerOverIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty PointerOverIconForegroundProperty =
+            DependencyProperty.Register("PointerOverIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PointerOverBorderBrush
+        {
+            get { return (Brush)GetValue(PointerOverBorderBrushProperty); }
+            set { SetValue(PointerOverBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty PointerOverBorderBrushProperty =
+            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PressedBackground
+        {
+            get { return (Brush)GetValue(PressedBackgroundProperty); }
+            set { SetValue(PressedBackgroundProperty, value); }
+        }
+        public static readonly DependencyProperty PressedBackgroundProperty =
+            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PressedTextForeground
+        {
+            get { return (Brush)GetValue(PressedTextForegroundProperty); }
+            set { SetValue(PressedTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty PressedTextForegroundProperty =
+            DependencyProperty.Register("PressedTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PressedIconForeground
+        {
+            get { return (Brush)GetValue(PressedIconForegroundProperty); }
+            set { SetValue(PressedIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty PressedIconForegroundProperty =
+            DependencyProperty.Register("PressedIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush PressedBorderBrush
+        {
+            get { return (Brush)GetValue(PressedBorderBrushProperty); }
+            set { SetValue(PressedBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty PressedBorderBrushProperty =
+            DependencyProperty.Register("PresseddBorderBrush", typeof(Brush), typeof(XPButton), null);
+
+        public Brush DisabledBackground
+        {
+            get { return (Brush)GetValue(DisabledBackgroundProperty); }
+            set { SetValue(DisabledBackgroundProperty, value); }
+        }
+        public static readonly DependencyProperty DisabledBackgroundProperty =
+            DependencyProperty.Register("DisabledBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush DisabledTextForeground
+        {
+            get { return (Brush)GetValue(DisabledTextForegroundProperty); }
+            set { SetValue(DisabledTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty DisabledTextForegroundProperty =
+            DependencyProperty.Register("DisabledTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush DisabledIconForeground
+        {
+            get { return (Brush)GetValue(DisabledIconForegroundProperty); }
+            set { SetValue(DisabledIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty DisabledIconForegroundProperty =
+            DependencyProperty.Register("DisabledIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush DisabledBorderBrush
+        {
+            get { return (Brush)GetValue(DisabledBorderBrushProperty); }
+            set { SetValue(DisabledBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty DisabledBorderBrushProperty =
+            DependencyProperty.Register("DisabledBorderBrush", typeof(Brush), typeof(XPButton), null);
+
+        #endregion
 
         #region adjust content
 
         void AdjustContentPresenter(Size finalSize)
         {
-            switch(IconPosition)
+            switch (IconPosition)
             {
                 case IconPosition.Left:
                     AdjustContentPresenterForLeft(finalSize);
@@ -138,7 +238,7 @@ namespace XP
             var buttonPaddingWidth = Padding.Left + Padding.Right;
             var iconMarginWidth = IconMargin.Left + IconMargin.Right;
 
-            return buttonPaddingWidth + iconMarginWidth + _symbolView.DesiredSize.Width + _contentPresenter.DesiredSize.Width;
+            return buttonPaddingWidth + iconMarginWidth + _symbolView.DesiredSize.Width * 2 + _contentPresenter.DesiredSize.Width;
         }
 
         #endregion
@@ -151,6 +251,27 @@ namespace XP
 
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
+            InitProperty();
+        }
+
+        private void InitProperty()
+        {
+            if (IconForeground == null) IconForeground = Foreground;
+
+            if (PointerOverBackground == null) PointerOverBackground = Background;
+            if (PointerOverTextForeground == null) PointerOverTextForeground = Foreground;
+            if (PointerOverIconForeground == null) PointerOverIconForeground = Foreground;
+            if (PointerOverBorderBrush == null) PointerOverBorderBrush = BorderBrush;
+
+            if (PressedBackground == null) PressedBackground = Background;
+            if (PressedTextForeground == null) PressedTextForeground = Foreground;
+            if (PressedIconForeground == null) PressedIconForeground = Foreground;
+            if (PressedBorderBrush == null) PressedBorderBrush = BorderBrush;
+
+            if (DisabledBackground == null) DisabledBackground = Background;
+            if (DisabledTextForeground == null) DisabledTextForeground = Foreground;
+            if (DisabledIconForeground == null) DisabledIconForeground = Foreground;
+            if (DisabledBorderBrush == null) DisabledBorderBrush = BorderBrush;
         }
 
         protected override void OnApplyTemplate()
@@ -160,6 +281,12 @@ namespace XP
             _symbol = (ContentControl)GetTemplateChild("Symbol");
             _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
+        }
+
+        protected override Size ArrangeOverride(Size finalSize)
+        {
+            AdjustContentPresenter(finalSize);
+            return base.ArrangeOverride(finalSize);
         }
     }
 }
