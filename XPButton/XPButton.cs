@@ -50,15 +50,15 @@ namespace XP
             set { SetValue(IconSizeProperty, value); }
         }
         public static readonly DependencyProperty IconSizeProperty =
-            DependencyProperty.Register("IconSize", typeof(double), typeof(XPButton), new PropertyMetadata(20));
+            DependencyProperty.Register("IconSize", typeof(double), typeof(XPButton), new PropertyMetadata(20d));
 
-        public Thickness IconMargin
+        public double IconInterval
         {
-            get { return (Thickness)GetValue(IconMarginProperty); }
-            set { SetValue(IconMarginProperty, value); }
+            get { return (double)GetValue(IconIntervalProperty); }
+            set { SetValue(IconIntervalProperty, value); }
         }
-        public static readonly DependencyProperty IconMarginProperty =
-            DependencyProperty.Register("IconMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(3, 0, 3, 0)));
+        public static readonly DependencyProperty IconIntervalProperty =
+            DependencyProperty.Register("IconInterval", typeof(double), typeof(XPButton), new PropertyMetadata(5d));
 
         public IconPosition IconPosition
         {
@@ -83,14 +83,6 @@ namespace XP
         }
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(XPButton), new PropertyMetadata(new CornerRadius(0)));
-
-        public Thickness ContentMargin
-        {
-            get { return (Thickness)GetValue(ContentMarginProperty); }
-            set { SetValue(ContentMarginProperty, value); }
-        }
-        public static readonly DependencyProperty ContentMarginProperty =
-            DependencyProperty.Register("ContentMargin", typeof(Thickness), typeof(XPButton), new PropertyMetadata(new Thickness(0)));
 
         public Brush PointerOverBackground
         {
@@ -208,10 +200,9 @@ namespace XP
         void AdjustContentPresenterForLeft(double width)
         {
             var buttonPaddingWidth = Padding.Left + Padding.Right;
-            var iconMarginWidth = IconMargin.Right;
 
             var left = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
-                - iconMarginWidth - buttonPaddingWidth) / 2;
+                 - buttonPaddingWidth) / 2;
 
             _symbolView.Margin = new Thickness(left, 0, 0, 0);
         }
@@ -219,20 +210,11 @@ namespace XP
         void AdjustContentPresenterForRight(double width)
         {
             var buttonPaddingWidth = Padding.Left + Padding.Right;
-            var iconMarginWidth = IconMargin.Right;
 
             var right = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
-                - iconMarginWidth - buttonPaddingWidth) / 2;
+                - IconInterval - buttonPaddingWidth) / 2;
 
             _symbolView.Margin = new Thickness(0, 0, right, 0);
-        }
-
-        double GetDesiredWidth()
-        {
-            var buttonPaddingWidth = Padding.Left + Padding.Right;
-            var iconMarginWidth = IconMargin.Left + IconMargin.Right;
-
-            return buttonPaddingWidth + iconMarginWidth + _symbolView.DesiredSize.Width * 2 + _contentPresenter.DesiredSize.Width;
         }
 
         #endregion
@@ -276,12 +258,6 @@ namespace XP
             _symbol = (ContentControl)GetTemplateChild("Symbol");
             _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
-        }
-
-        protected override Size ArrangeOverride(Size finalSize)
-        {
-            //AdjustContentPresenter(finalSize);
-            return base.ArrangeOverride(finalSize);
         }
     }
 }

@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XP">
 
+    <local:MarginConverter x:Key="MarginConverter" />
     <Style TargetType="local:XPButton">
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -150,8 +151,7 @@
                                 Height="{TemplateBinding Height}"
                                 Padding="{TemplateBinding Padding}">
                             <Viewbox x:Name="SymbolView"
-                                    Margin="{TemplateBinding IconMargin}"
-                                    Width="{TemplateBinding IconSize}"
+                                Width="{TemplateBinding IconSize}"
                                     Height="{TemplateBinding IconSize}"
                                     VerticalAlignment="Stretch"
                                     RelativePanel.AlignLeftWithPanel="True"
@@ -162,6 +162,7 @@
                                         Foreground="{TemplateBinding IconForeground}"/>
                             </Viewbox>
                             <ContentPresenter x:Name="ContentPresenter"
+                                Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconInterval, Converter={StaticResource MarginConverter}, ConverterParameter='left'}"
                                 AutomationProperties.AccessibilityView="Raw" 
                                 RelativePanel.RightOf="SymbolView"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"

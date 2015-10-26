@@ -60,7 +60,6 @@
                              FontSize="20" 
                              IconSize="30" 
                              IconPosition="Left" 
-                             IconMargin="0"
                              BorderBrush="White" 
                              BorderThickness="2" 
                              CornerRadius="0">
@@ -80,8 +79,9 @@
                              PressedIconForeground="Black"
                              PressedTextForeground="Black"
                              FontSize="20" 
-                             IconSize="30" 
+                             IconSize="25" 
                              IconPosition="Left" 
+                             IconInterval="8"
                              BorderBrush="White" 
                              BorderThickness="2" 
                              Height="60"
