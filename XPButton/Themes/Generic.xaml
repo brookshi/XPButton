@@ -87,6 +87,8 @@
                                     <VisualState.Setters>
                                         <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignRightWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.LeftOf)" Value="SymbolView"/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="TopIcon">
@@ -98,7 +100,9 @@
                                         <Setter Target="SymbolView.(RelativePanel.AlignTopWithPanel)" Value="True"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.Below)" Value="SymbolView"/>
                                     </VisualState.Setters>
                                 </VisualState>
@@ -111,7 +115,9 @@
                                         <Setter Target="SymbolView.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.Above)" Value="SymbolView"/>
                                     </VisualState.Setters>
                                 </VisualState>
@@ -157,7 +163,7 @@
                             </Viewbox>
                             <ContentPresenter x:Name="ContentPresenter"
                                 AutomationProperties.AccessibilityView="Raw" 
-                                RelativePanel.AlignHorizontalCenterWithPanel="True" 
+                                RelativePanel.RightOf="SymbolView"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 ContentTemplate="{TemplateBinding ContentTemplate}" 
                                 ContentTransitions="{TemplateBinding ContentTransitions}" 

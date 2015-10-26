@@ -192,45 +192,39 @@ namespace XP
 
         #region adjust content
 
-        void AdjustContentPresenter(Size finalSize)
+        void AdjustContentPresenter(double width)
         {
             switch (IconPosition)
             {
                 case IconPosition.Left:
-                    AdjustContentPresenterForLeft(finalSize);
+                    AdjustContentPresenterForLeft(width);
                     break;
                 case IconPosition.Right:
-                    AdjustContentPresenterForRight(finalSize);
+                    AdjustContentPresenterForRight(width);
                     break;
             }
         }
 
-        void AdjustContentPresenterForLeft(Size finalSize)
+        void AdjustContentPresenterForLeft(double width)
         {
-            if (finalSize.Width < GetDesiredWidth())
-            {
-                RelativePanel.SetRightOf(_contentPresenter, "SymbolView");
-                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, false);
-            }
-            else
-            {
-                RelativePanel.SetRightOf(_contentPresenter, "");
-                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, true);
-            }
+            var buttonPaddingWidth = Padding.Left + Padding.Right;
+            var iconMarginWidth = IconMargin.Right;
+
+            var left = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
+                - iconMarginWidth - buttonPaddingWidth) / 2;
+
+            _symbolView.Margin = new Thickness(left, 0, 0, 0);
         }
 
-        void AdjustContentPresenterForRight(Size finalSize)
+        void AdjustContentPresenterForRight(double width)
         {
-            if (finalSize.Width < GetDesiredWidth())
-            {
-                RelativePanel.SetLeftOf(_contentPresenter, "SymbolView");
-                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, false);
-            }
-            else
-            {
-                RelativePanel.SetLeftOf(_contentPresenter, "");
-                RelativePanel.SetAlignHorizontalCenterWithPanel(_contentPresenter, true);
-            }
+            var buttonPaddingWidth = Padding.Left + Padding.Right;
+            var iconMarginWidth = IconMargin.Right;
+
+            var right = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
+                - iconMarginWidth - buttonPaddingWidth) / 2;
+
+            _symbolView.Margin = new Thickness(0, 0, right, 0);
         }
 
         double GetDesiredWidth()
@@ -252,6 +246,7 @@ namespace XP
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
             InitProperty();
+            AdjustContentPresenter(ActualWidth);
         }
 
         private void InitProperty()
@@ -285,7 +280,7 @@ namespace XP
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            AdjustContentPresenter(finalSize);
+            //AdjustContentPresenter(finalSize);
             return base.ArrangeOverride(finalSize);
         }
     }
