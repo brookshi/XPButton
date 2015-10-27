@@ -24,27 +24,31 @@ using Windows.UI.Xaml.Data;
 
 namespace XP
 {
-    public class MarginConverter : IValueConverter
+    public class MarginConverter : DependencyObject, IValueConverter
     {
-        public const string Left = "left";
-        public const string Right = "right";
-        public const string Top = "top";
-        public const string Bottom = "bottom";
+        public IconPosition IconPosition
+        {
+            get { return (IconPosition)GetValue(IconPositionProperty); }
+            set { SetValue(IconPositionProperty, value); }
+        }
+        public static readonly DependencyProperty IconPositionProperty =
+            DependencyProperty.Register("IconPosition", typeof(IconPosition), typeof(MarginConverter), new PropertyMetadata(IconPosition.Left));
+
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            switch(parameter.ToString())
+            switch (IconPosition)
             {
-                case Left:
+                case IconPosition.Left:
                     return new Thickness(double.Parse(value.ToString()), 0, 0, 0);
-                case Right:
+                case IconPosition.Right:
                     return new Thickness(0, 0, double.Parse(value.ToString()), 0);
-                case Top:
+                case IconPosition.Top:
                     return new Thickness(0, double.Parse(value.ToString()), 0, 0);
-                case Bottom:
+                case IconPosition.Bottom:
                     return new Thickness(0, 0, 0, double.Parse(value.ToString()));
                 default:
-                    throw new NotImplementedException();
+                    return new Thickness(0, 0, 0, 0);
             }
         }
 

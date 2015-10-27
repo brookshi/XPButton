@@ -184,37 +184,35 @@ namespace XP
 
         #region adjust content
 
-        void AdjustContentPresenter(double width)
+        void HorizontalCenterElements()
         {
             switch (IconPosition)
             {
                 case IconPosition.Left:
-                    AdjustContentPresenterForLeft(width);
+                    _symbolView.Margin = new Thickness(CalculateMarginWidth(), 0, 0, 0);
                     break;
                 case IconPosition.Right:
-                    AdjustContentPresenterForRight(width);
+                    _symbolView.Margin = new Thickness(0, 0, CalculateMarginWidth(), 0);
+                    break;
+                case IconPosition.Top:
+                    _symbolView.Margin = new Thickness(0, CalculateMarginHeight(), 0, 0);
+                    break;
+                case IconPosition.Bottom:
+                    _symbolView.Margin = new Thickness(0, 0, 0, CalculateMarginHeight());
                     break;
             }
         }
 
-        void AdjustContentPresenterForLeft(double width)
+        double CalculateMarginWidth()
         {
             var buttonPaddingWidth = Padding.Left + Padding.Right;
-
-            var left = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
-                 - buttonPaddingWidth) / 2;
-
-            _symbolView.Margin = new Thickness(left, 0, 0, 0);
+            return (ActualWidth - IconInterval - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width - buttonPaddingWidth) / 2;
         }
 
-        void AdjustContentPresenterForRight(double width)
+        double CalculateMarginHeight()
         {
-            var buttonPaddingWidth = Padding.Left + Padding.Right;
-
-            var right = (width - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width
-                - IconInterval - buttonPaddingWidth) / 2;
-
-            _symbolView.Margin = new Thickness(0, 0, right, 0);
+            var buttonPaddingHeight = Padding.Top + Padding.Bottom;
+            return (ActualHeight - IconInterval - _symbolView.DesiredSize.Height - _contentPresenter.DesiredSize.Height - buttonPaddingHeight) / 2;
         }
 
         #endregion
@@ -228,7 +226,7 @@ namespace XP
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
             InitProperty();
-            AdjustContentPresenter(ActualWidth);
+            HorizontalCenterElements();
         }
 
         private void InitProperty()

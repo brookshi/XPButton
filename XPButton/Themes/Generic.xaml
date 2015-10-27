@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:XP">
 
-    <local:MarginConverter x:Key="MarginConverter" />
     <Style TargetType="local:XPButton">
         <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
@@ -88,7 +87,7 @@
                                     <VisualState.Setters>
                                         <Setter Target="SymbolView.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignRightWithPanel)" Value="True"/>
-                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value=""/>
                                         <Setter Target="ContentPresenter.(RelativePanel.LeftOf)" Value="SymbolView"/>
                                     </VisualState.Setters>
                                 </VisualState>
@@ -101,7 +100,7 @@
                                         <Setter Target="SymbolView.(RelativePanel.AlignTopWithPanel)" Value="True"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
-                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value=""/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.Below)" Value="SymbolView"/>
@@ -116,7 +115,7 @@
                                         <Setter Target="SymbolView.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="SymbolView.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
-                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value="null"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value=""/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignVerticalCenterWithPanel)" Value="False"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
                                         <Setter Target="ContentPresenter.(RelativePanel.Above)" Value="SymbolView"/>
@@ -150,6 +149,9 @@
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}"
                                 Padding="{TemplateBinding Padding}">
+                            <RelativePanel.Resources>
+                                <local:MarginConverter x:Key="MarginConverter" IconPosition="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconPosition}" />
+                            </RelativePanel.Resources>
                             <Viewbox x:Name="SymbolView"
                                 Width="{TemplateBinding IconSize}"
                                     Height="{TemplateBinding IconSize}"
@@ -162,7 +164,7 @@
                                         Foreground="{TemplateBinding IconForeground}"/>
                             </Viewbox>
                             <ContentPresenter x:Name="ContentPresenter"
-                                Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconInterval, Converter={StaticResource MarginConverter}, ConverterParameter='left'}"
+                                Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconInterval, Converter={StaticResource MarginConverter}}"
                                 AutomationProperties.AccessibilityView="Raw" 
                                 RelativePanel.RightOf="SymbolView"
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
