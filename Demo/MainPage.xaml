@@ -11,41 +11,207 @@
 
     <Grid >
         <StackPanel>
-            <!--<xp:XPButton x:Name="XPB" Foreground="White" Click="XPButton_Click" FontSize="30" IconSize="30" Content="win 10" Width="300" Height="100" Icon="Clock" IconPosition="Left"  Background="Blue" CornerRadius="0" />
-            <xp:XPButton Foreground="White" Click="XPButton_Click" FontSize="30" IconSize="30" Content="win 10" Width="300" Height="100" Icon="Add" IconPosition="Right"  Background="Green" CornerRadius="0" />
-            <xp:XPButton Foreground="Black" Click="XPButton_Click" FontSize="30" IconSize="30" Content="win 10" Width="300" Height="100" Icon="Admin" IconPosition="Top"  Background="Gray" CornerRadius="0" />
-            <xp:XPButton Foreground="Black" Click="XPButton_Click" FontSize="30" IconSize="30" Content="win 10" Width="300" Height="100" Icon="Delete" IconPosition="Bottom"  Background="Yellow" CornerRadius="0" />-->
-
-            <!--<xp:XPButton Margin="10" Foreground="White" FontSize="30" IconSize="30" Content="win 10" Icon="Clock" IconPosition="Left"  Background="Blue" CornerRadius="10"/>
-            <xp:XPButton Margin="10" Foreground="White" FontSize="30" IconSize="30" Content="win 10" Icon="Add" IconPosition="Right"  Background="Green" CornerRadius="10" />
-            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Admin" IconPosition="Top"  Background="Gray" CornerRadius="10" />
-            <xp:XPButton Margin="10" IconMargin="0, 0, 0, 4" ContentMargin="0, 0, 0, 4" Foreground="White" FontSize="16" IconSize="45" Height="90" Width="90" Content="win 10" Icon="Delete" IconPosition="Bottom"  Background="Red" CornerRadius="10" />
-            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Accept" IconPosition="NoIcon"  Background="Blue" CornerRadius="10" />
-            <xp:XPButton Margin="10" Foreground="White" FontSize="16" IconSize="45" Height="80" Width="80" Content="win 10" Icon="Like" IconPosition="OnlyIcon"  Background="Blue" CornerRadius="40" BorderBrush="White" BorderThickness="2" />-->
-            
-            
-            <!--<StackPanel Orientation="Horizontal">
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="0" CornerRadius="0" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="1" CornerRadius="0" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="2" CornerRadius="0" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="4" CornerRadius="0" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="5" CornerRadius="0" ShadowColor="Black"/>
-                <xp:XPButton Foreground="White" Height="40" Margin="10,0,0,0" Width="80" Content="win 10" Background="#2196F3" ShadowLength="6" CornerRadius="0" ShadowColor="Black"/>
+            <StackPanel Margin="0, 10, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#3B6998">
+                <xp:XPButton Margin="10" 
+                             Content="Follow me" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             PointerOverTextForeground="Gray" 
+                             PointerOverBorderBrush="White"
+                             PointerOverIconForeground="Gray"
+                             PressedBackground="LightGray"
+                             PressedBorderBrush="LightGray"
+                             PressedIconForeground="Black"
+                             PressedTextForeground="Black"
+                             FontSize="20" 
+                             IconSize="30" 
+                             IconInterval="0"
+                             IconPosition="Right" 
+                             BorderBrush="White" 
+                             BorderThickness="2" 
+                             CornerRadius="0">
+                    <xp:XPButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/facebook.png"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Content="Share" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverTextForeground="White" 
+                             PointerOverBorderBrush="White"
+                             PointerOverIconForeground="Red"
+                             PressedBackground="LightGray"
+                             PressedBorderBrush="LightGray"
+                             PressedIconForeground="White"
+                             PressedTextForeground="White"
+                             FontSize="15" 
+                             IconSize="18" 
+                             IconPosition="Right" 
+                             BorderBrush="Yellow" 
+                             BorderThickness="2" 
+                             CornerRadius="6">
+                    <xp:XPButton.Icon>
+                        <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf064;"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverTextForeground="White" 
+                             PointerOverBorderBrush="Black"
+                             PointerOverIconForeground="Black"
+                             PressedBackground="LightGray"
+                             PressedBorderBrush="LightGray"
+                             PressedIconForeground="White"
+                             PressedTextForeground="White"
+                             IconSize="30" 
+                             IconPosition="OnlyIcon" 
+                             BorderBrush="White" 
+                             BorderThickness="2" 
+                             CornerRadius="0"
+                             Icon="Shuffle">
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverTextForeground="White" 
+                             PointerOverBorderBrush="Black"
+                             PointerOverIconForeground="Black"
+                             PressedBackground="LightGray"
+                             PressedBorderBrush="LightGray"
+                             PressedIconForeground="White"
+                             PressedTextForeground="White"
+                             IconSize="25" 
+                             IconPosition="OnlyIcon" 
+                             BorderBrush="White" 
+                             BorderThickness="2" 
+                             Width="50"
+                             Height="50"
+                             CornerRadius="25"
+                             Icon="Phone">
+                </xp:XPButton>
             </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0" BorderBrush="Black" BorderThickness="1">
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="0" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="1" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="2" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="3" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="4" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="5" CornerRadius=".5" ShadowColor="Black"/>
-                <xp:XPButton Foreground="#2196F3" Height="60" Margin="10,0,0,0" Width="60" Content="+" Background="#ff4081" ShadowLength="6" CornerRadius=".5" ShadowColor="Black"/>
+            <StackPanel Margin="0, 0, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
+                <xp:XPButton Margin="10" 
+                             Background="#55ACEE" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverBackground="#2599EE"
+                             PressedBackground="#2099EE"
+                             IconSize="30" 
+                             IconPosition="OnlyIcon"
+                             Width="50"
+                             Height="50"
+                             CornerRadius="25">
+                    <xp:XPButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/twitter.png"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Background="#DD4B39" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverBackground="#AA3930"
+                             PressedBackground="#992920"
+                             IconSize="30" 
+                             IconPosition="OnlyIcon"
+                             Width="50"
+                             Height="50"
+                             CornerRadius="25">
+                    <xp:XPButton.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/gplus.png"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Background="Green" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverBackground="DarkGreen"
+                             PressedBackground="DarkGreen"
+                             IconSize="30" 
+                             IconPosition="OnlyIcon"
+                             Width="50"
+                             Height="50"
+                             CornerRadius="25">
+                    <xp:XPButton.Icon>
+                        <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf1d7;"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Background="Orange" 
+                             Foreground="White" 
+                             IconForeground="White"
+                             PointerOverBackground="DarkOrange"
+                             PressedBackground="DarkOrange"
+                             IconSize="25" 
+                             IconPosition="OnlyIcon"
+                             Width="50"
+                             Height="50"
+                             CornerRadius="25"
+                             Icon="Contact">
+                </xp:XPButton>
             </StackPanel>
-            <xp:XPButton HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Height="300" Width="300" Content="+" Background="#2196F3" ShadowLength="30" CornerRadius="5" ShadowColor="Black"/>-->
-        </StackPanel>
-        <StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#55ACEE">
+            <StackPanel Margin="0, 0, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="Black">
+                <xp:XPButton Margin="10" 
+                             Content="Home" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             PointerOverTextForeground="Red" 
+                             PointerOverBorderBrush="Green"
+                             PointerOverIconForeground="Blue"
+                             PressedBackground="LightGray"
+                             PressedBorderBrush="LightGray"
+                             PressedIconForeground="Black"
+                             PressedTextForeground="Black"
+                             FontSize="20" 
+                             IconSize="25" 
+                             IconPosition="Left" 
+                             IconInterval="8"
+                             BorderBrush="White" 
+                             BorderThickness="2" 
+                             Height="60"
+                             Width="140"
+                             CornerRadius="5"
+                             Icon="Home">
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Content="PLAY" 
+                             Background="#7AB800" 
+                             Foreground="White" 
+                             PointerOverTextForeground="White" 
+                             PointerOverBorderBrush="Green"
+                             PointerOverIconForeground="Green"
+                             PressedBackground="DarkGreen"
+                             FontSize="15" 
+                             IconSize="18" 
+                             IconPosition="Left" 
+                             IconInterval="2"
+                             CornerRadius="15"
+                             Width="120"
+                             Icon="Play">
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Content="PAUSE" 
+                             Background="#7AB800" 
+                             Foreground="White" 
+                             PointerOverTextForeground="White" 
+                             PointerOverBorderBrush="Green"
+                             PointerOverIconForeground="Green"
+                             PressedBackground="DarkGreen"
+                             FontSize="15" 
+                             IconSize="18" 
+                             IconPosition="Left" 
+                             IconInterval="2"
+                             CornerRadius="15"
+                             Width="100"
+                             Icon="Pause">
+                </xp:XPButton>
+            </StackPanel>
+            <StackPanel Margin="0, 0, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#55ACEE">
                 <xp:XPButton Margin="10" 
                              Content="Follow me" 
                              Background="Transparent" 
@@ -68,31 +234,10 @@
                     </xp:XPButton.Icon>
                 </xp:XPButton>
                 <xp:XPButton Margin="10" 
-                             Content="Refresh" 
-                             Background="Black" 
-                             Foreground="White" 
-                             PointerOverTextForeground="Red" 
-                             PointerOverBorderBrush="Green"
-                             PointerOverIconForeground="Blue"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="Black"
-                             PressedTextForeground="Black"
-                             FontSize="20" 
-                             IconSize="25" 
-                             IconPosition="Left" 
-                             IconInterval="8"
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             Height="60"
-                             Width="140"
-                             CornerRadius="5"
-                             Icon="Refresh">
-                </xp:XPButton>
-                <xp:XPButton Margin="10" 
-                             Content="PLAY" 
+                             Content="11 Star" 
                              Background="Transparent" 
                              Foreground="White" 
+                             IconForeground="Yellow"
                              PointerOverTextForeground="Green" 
                              PointerOverBorderBrush="Green"
                              PointerOverIconForeground="Green"
@@ -100,15 +245,13 @@
                              PressedBorderBrush="LightGray"
                              PressedIconForeground="White"
                              PressedTextForeground="White"
-                             FontSize="15" 
-                             IconSize="18" 
-                             IconPosition="Left" 
-                             IconInterval="2"
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             CornerRadius="15"
-                             Width="120"
-                             Icon="Play">
+                             FontSize="12" 
+                             IconSize="30" 
+                             IconPosition="Top" 
+                             IconInterval="5"
+                             BorderThickness="0" 
+                             CornerRadius="5"
+                             Icon="SolidStar">
                 </xp:XPButton>
                 <xp:XPButton Margin="10" 
                              Content="Chrome" 
@@ -133,182 +276,113 @@
                     </xp:XPButton.Icon>
                 </xp:XPButton>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#55ACEE">
+            <StackPanel Margin="0, 0, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#FF5F69">
                 <xp:XPButton Margin="10" 
-                             Content="Follow me" 
+                             Content="Create an account" 
                              Background="Transparent" 
                              Foreground="White" 
-                             PointerOverTextForeground="Gray" 
-                             PointerOverBorderBrush="White"
-                             PointerOverIconForeground="Gray"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
+                             PointerOverTextForeground="LightGray" 
+                             PointerOverBorderBrush="LightGray"
+                             PointerOverIconForeground="LightGray"
+                             PressedBorderBrush="Black"
                              PressedIconForeground="Black"
                              PressedTextForeground="Black"
-                             FontSize="20" 
-                             IconSize="30" 
-                             IconInterval="0"
-                             IconPosition="Right" 
+                             FontSize="14" 
+                             IconPosition="NoIcon" 
                              BorderBrush="White" 
-                             BorderThickness="2" 
-                             CornerRadius="0">
+                             BorderThickness="1" 
+                             Height="40"
+                             Width="160"
+                             CornerRadius="20">
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Content="Login" 
+                             Background="Transparent" 
+                             Foreground="White" 
+                             PointerOverTextForeground="LightGray" 
+                             PointerOverBorderBrush="LightGray"
+                             PointerOverIconForeground="LightGray"
+                             PressedBorderBrush="Black"
+                             PressedIconForeground="Black"
+                             PressedTextForeground="Black"
+                             FontSize="14" 
+                             IconPosition="Left" 
+                             BorderBrush="White" 
+                             BorderThickness="1" 
+                             Height="40"
+                             Width="90"
+                             CornerRadius="20">
                     <xp:XPButton.Icon>
-                        <BitmapIcon UriSource="ms-appx:///Assets/facebook.png"/>
+                        <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf007;"/>
                     </xp:XPButton.Icon>
                 </xp:XPButton>
                 <xp:XPButton Margin="10" 
-                             Content="Home" 
-                             Background="Black" 
+                             Content="Delete" 
+                             Background="Transparent" 
                              Foreground="White" 
-                             PointerOverTextForeground="Red" 
-                             PointerOverBorderBrush="Green"
-                             PointerOverIconForeground="Blue"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
+                             PointerOverTextForeground="LightGray" 
+                             PointerOverBorderBrush="LightGray"
+                             PointerOverIconForeground="LightGray"
+                             PressedBorderBrush="Black"
                              PressedIconForeground="Black"
                              PressedTextForeground="Black"
-                             FontSize="20" 
-                             IconSize="25" 
-                             IconPosition="Right" 
-                             IconInterval="8"
+                             FontSize="14" 
+                             IconPosition="Left" 
                              BorderBrush="White" 
-                             BorderThickness="2" 
-                             Height="60"
-                             Width="140"
+                             BorderThickness="1" 
+                             Height="40"
+                             Width="90"
                              CornerRadius="5"
-                             Icon="Home">
-                </xp:XPButton>
-                <xp:XPButton Margin="10" 
-                             Content="Send" 
-                             Background="Transparent" 
-                             Foreground="White" 
-                             PointerOverTextForeground="Green" 
-                             PointerOverBorderBrush="Green"
-                             PointerOverIconForeground="Green"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="White"
-                             PressedTextForeground="White"
-                             FontSize="15" 
-                             IconSize="18" 
-                             IconPosition="Right" 
-                             IconInterval="5"
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             CornerRadius="15"
-                             Width="120"
-                             Icon="Send">
-                </xp:XPButton>
-                <xp:XPButton Margin="10" 
-                             Content="Share" 
-                             Background="Transparent" 
-                             Foreground="Green" 
-                             IconForeground="White"
-                             PointerOverTextForeground="White" 
-                             PointerOverBorderBrush="White"
-                             PointerOverIconForeground="Red"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="White"
-                             PressedTextForeground="White"
-                             FontSize="15" 
-                             IconSize="18" 
-                             IconPosition="Right" 
-                             BorderBrush="Yellow" 
-                             BorderThickness="2" 
-                             CornerRadius="6">
-                    <xp:XPButton.Icon>
-                        <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf064;"/>
-                    </xp:XPButton.Icon>
+                             Icon="Delete">
                 </xp:XPButton>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="#55ACEE">
+            <StackPanel Margin="0, 0, 0, 10" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
                 <xp:XPButton Margin="10" 
                              Content="Github" 
-                             Background="Transparent" 
+                             Background="#3B414F" 
                              Foreground="White" 
                              PointerOverTextForeground="Gray" 
-                             PointerOverBorderBrush="White"
                              PointerOverIconForeground="Gray"
                              PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="Black"
-                             PressedTextForeground="Black"
                              FontSize="12" 
-                             IconSize="40" 
+                             IconSize="30" 
                              IconInterval="0"
                              IconPosition="Top" 
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             CornerRadius="0">
+                             CornerRadius="8">
                     <xp:XPButton.Icon>
                         <BitmapIcon UriSource="ms-appx:///Assets/github.png"/>
                     </xp:XPButton.Icon>
                 </xp:XPButton>
                 <xp:XPButton Margin="10" 
-                             Content="Calendar" 
-                             Background="Black" 
+                             Content="Download the file" 
+                             Background="#3B414F" 
                              Foreground="White" 
-                             PointerOverTextForeground="Red" 
-                             PointerOverBorderBrush="Green"
-                             PointerOverIconForeground="Blue"
+                             PointerOverTextForeground="Gray" 
+                             PointerOverIconForeground="Gray"
                              PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="Black"
-                             PressedTextForeground="Black"
-                             FontSize="14" 
-                             IconSize="30" 
-                             IconPosition="Top" 
-                             IconInterval="3"
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             Height="80"
-                             Width="80"
-                             CornerRadius="5"
-                             Icon="Calendar">
-                </xp:XPButton>
-                <xp:XPButton Margin="10" 
-                             Content="11 Star" 
-                             Background="Transparent" 
-                             Foreground="White" 
-                             IconForeground="Yellow"
-                             PointerOverTextForeground="Green" 
-                             PointerOverBorderBrush="Green"
-                             PointerOverIconForeground="Green"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="White"
-                             PressedTextForeground="White"
                              FontSize="12" 
                              IconSize="30" 
+                             IconInterval="0"
                              IconPosition="Top" 
-                             IconInterval="5"
-                             BorderBrush="White" 
-                             BorderThickness="2" 
-                             CornerRadius="5"
-                             Icon="SolidStar">
-                </xp:XPButton>
-                <xp:XPButton Margin="10" 
-                             Content="Download" 
-                             Background="Transparent" 
-                             Foreground="Green" 
-                             IconForeground="White"
-                             PointerOverTextForeground="White" 
-                             PointerOverBorderBrush="White"
-                             PointerOverIconForeground="Red"
-                             PressedBackground="LightGray"
-                             PressedBorderBrush="LightGray"
-                             PressedIconForeground="White"
-                             PressedTextForeground="White"
-                             FontSize="13" 
-                             IconSize="30" 
-                             IconInterval="2"
-                             IconPosition="Top" 
-                             BorderBrush="Yellow" 
-                             BorderThickness="2" 
-                             CornerRadius="6">
+                             CornerRadius="8">
                     <xp:XPButton.Icon>
                         <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf0ed;"/>
+                    </xp:XPButton.Icon>
+                </xp:XPButton>
+                <xp:XPButton Margin="10" 
+                             Content="Upload" 
+                             Background="#3B414F" 
+                             Foreground="White" 
+                             PointerOverTextForeground="Gray" 
+                             PointerOverIconForeground="Gray"
+                             PressedBackground="LightGray"
+                             FontSize="12" 
+                             IconSize="30" 
+                             IconInterval="0"
+                             IconPosition="Bottom" 
+                             CornerRadius="8">
+                    <xp:XPButton.Icon>
+                        <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf0ee;"/>
                     </xp:XPButton.Icon>
                 </xp:XPButton>
             </StackPanel>

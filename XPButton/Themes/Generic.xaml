@@ -127,6 +127,8 @@
                                     </VisualState.StateTriggers>
                                     <VisualState.Setters>
                                         <Setter Target="SymbolView.Visibility" Value="Collapsed"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="True"/>
+                                        <Setter Target="ContentPresenter.(RelativePanel.RightOf)" Value=""/>
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="OnlyIcon">
@@ -170,6 +172,7 @@
                                 RelativePanel.AlignVerticalCenterWithPanel="True"
                                 ContentTemplate="{TemplateBinding ContentTemplate}" 
                                 ContentTransitions="{TemplateBinding ContentTransitions}" 
+                                VerticalAlignment="Center"
                                 Content="{TemplateBinding Content}" />
                         </RelativePanel>
                     </Grid>
