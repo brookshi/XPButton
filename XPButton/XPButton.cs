@@ -206,13 +206,15 @@ namespace XP
         double CalculateMarginWidth()
         {
             var buttonPaddingWidth = Padding.Left + Padding.Right;
-            return (ActualWidth - IconInterval - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width - buttonPaddingWidth) / 2;
+            var marginWidth = (ActualWidth - IconInterval - _symbolView.DesiredSize.Width - _contentPresenter.DesiredSize.Width - buttonPaddingWidth) / 2;
+            return Math.Max(0, marginWidth);
         }
 
         double CalculateMarginHeight()
         {
             var buttonPaddingHeight = Padding.Top + Padding.Bottom;
-            return (ActualHeight - IconInterval - _symbolView.DesiredSize.Height - _contentPresenter.DesiredSize.Height - buttonPaddingHeight) / 2;
+            var marginHeight = (ActualHeight - IconInterval - _symbolView.DesiredSize.Height - _contentPresenter.DesiredSize.Height - buttonPaddingHeight) / 2;
+            return Math.Max(0, marginHeight);
         }
 
         #endregion
