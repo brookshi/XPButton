@@ -161,7 +161,6 @@
                                     RelativePanel.AlignLeftWithPanel="True"
                                     RelativePanel.AlignVerticalCenterWithPanel="True">
                                 <ContentControl x:Name="Symbol"
-                                        VerticalContentAlignment="Center"
                                         Content="{TemplateBinding Icon}" 
                                         Foreground="{TemplateBinding IconForeground}"/>
                             </Viewbox>
