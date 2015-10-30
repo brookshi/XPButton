@@ -393,8 +393,8 @@
                     </xp:XPButton>
                 </StackPanel>
 
-                <StackPanel Height="120" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
-                    <xp:Shadow Z_Depth="2" CornerRadius="0.5" Margin="10">
+                <StackPanel Orientation="Horizontal" Height="120" >
+                    <xp:Shadow Z_Depth="1" CornerRadius="0.5" Margin="10">
                         <xp:XPButton 
                                  Background="#55ACEE" 
                                  Foreground="White" 
@@ -405,13 +405,15 @@
                                  IconPosition="OnlyIcon"
                                  Width="50"
                                  Height="50"
-                                 CornerRadius="25">
+                                 CornerRadius="25"
+                                 BorderThickness="0">
                             <xp:XPButton.Icon>
-                                <BitmapIcon UriSource="ms-appx:///Assets/twitter.png"/>
+                                <BitmapIcon UriSource="ms-appx:///../Assets/twitter.png"/>
                             </xp:XPButton.Icon>
                         </xp:XPButton>
                     </xp:Shadow>
-                    <xp:XPButton Margin="10" 
+                    <xp:Shadow Z_Depth="2" CornerRadius="0.5" Margin="10">
+                        <xp:XPButton 
                              Background="#DD4B39" 
                              Foreground="White" 
                              IconForeground="White"
@@ -421,12 +423,15 @@
                              IconPosition="OnlyIcon"
                              Width="50"
                              Height="50"
-                             CornerRadius="25">
-                        <xp:XPButton.Icon>
-                            <BitmapIcon UriSource="ms-appx:///Assets/gplus.png"/>
-                        </xp:XPButton.Icon>
-                    </xp:XPButton>
-                    <xp:XPButton Margin="10" 
+                             CornerRadius="25"
+                             BorderThickness="0">
+                            <xp:XPButton.Icon>
+                                <BitmapIcon UriSource="ms-appx:///../Assets/gplus.png"/>
+                            </xp:XPButton.Icon>
+                        </xp:XPButton>
+                    </xp:Shadow>
+                    <xp:Shadow Z_Depth="3" CornerRadius="0.5" Margin="10">
+                        <xp:XPButton
                              Background="Green" 
                              Foreground="White" 
                              IconForeground="White"
@@ -436,26 +441,32 @@
                              IconPosition="OnlyIcon"
                              Width="50"
                              Height="50"
-                             CornerRadius="25">
-                        <xp:XPButton.Icon>
-                            <FontIcon FontFamily="/Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf1d7;"/>
-                        </xp:XPButton.Icon>
-                    </xp:XPButton>
-                    <xp:XPButton Margin="10" 
+                             CornerRadius="25"
+                             BorderThickness="0">
+                            <xp:XPButton.Icon>
+                                <FontIcon FontFamily="/../Assets/Fonts/fontawesome-webfont.ttf#FontAwesome" Glyph="&#xf1d7;"/>
+                            </xp:XPButton.Icon>
+                        </xp:XPButton>
+                    </xp:Shadow>
+                    <xp:Shadow Z_Depth="4" CornerRadius="0.5" Margin="10">
+                        <xp:XPButton
                              Background="Orange" 
                              Foreground="White" 
                              IconForeground="White"
                              PointerOverBackground="DarkOrange"
                              PressedBackground="DarkOrange"
-                             IconSize="25" 
+                             IconSize="20" 
                              IconPosition="OnlyIcon"
                              Width="50"
                              Height="50"
                              CornerRadius="25"
-                             Icon="Contact">
-                    </xp:XPButton>
+                             Icon="Contact"
+                             BorderThickness="0">
+                        </xp:XPButton>
+                    </xp:Shadow>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Height="120" >
+                
+                <StackPanel Orientation="Horizontal" Height="90" >
                     <xp:Shadow Z_Depth="2" CornerRadius="2" Margin="10">
                         <xp:XPButton 
                                  Background="#FAFAFA" 
