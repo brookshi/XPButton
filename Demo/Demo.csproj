@@ -94,6 +94,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Fonts\fontawesome-webfont.ttf" />
+    <Content Include="XPButton.png" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
