@@ -15,15 +15,9 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Numerics;
-using Windows.Graphics.Display;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.Foundation;
-using System.Diagnostics;
 
 namespace XP
 {
