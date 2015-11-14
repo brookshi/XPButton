@@ -17,6 +17,7 @@
 using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace XP
@@ -29,6 +30,24 @@ namespace XP
         private ContentPresenter _contentPresenter;
 
         #region property
+
+        public event ToggleEvent OnToggleChanged;
+
+        public bool IsToggleMode
+        {
+            get { return (bool)GetValue(IsToggleModeProperty); }
+            set { SetValue(IsToggleModeProperty, value); }
+        }
+        public static readonly DependencyProperty IsToggleModeProperty =
+            DependencyProperty.Register("IsToggleMode", typeof(bool), typeof(XPButton), new PropertyMetadata(false));
+
+        public bool IsChecked
+        {
+            get { return (bool)GetValue(IsCheckedProperty); }
+            set { SetValue(IsCheckedProperty, value); }
+        }
+        public static readonly DependencyProperty IsCheckedProperty =
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(XPButton), new PropertyMetadata(false));
 
         public IconElement Icon
         {
@@ -174,6 +193,38 @@ namespace XP
         public static readonly DependencyProperty DisabledBorderBrushProperty =
             DependencyProperty.Register("DisabledBorderBrush", typeof(Brush), typeof(XPButton), null);
 
+        public Brush CheckedBackground
+        {
+            get { return (Brush)GetValue(CheckedBackgroundProperty); }
+            set { SetValue(CheckedBackgroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedBackgroundProperty =
+            DependencyProperty.Register("CheckedBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedTextForeground
+        {
+            get { return (Brush)GetValue(CheckedTextForegroundProperty); }
+            set { SetValue(CheckedTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedTextForegroundProperty =
+            DependencyProperty.Register("CheckedTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedIconForeground
+        {
+            get { return (Brush)GetValue(CheckedIconForegroundProperty); }
+            set { SetValue(CheckedIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedIconForegroundProperty =
+            DependencyProperty.Register("CheckedIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedBorderBrush
+        {
+            get { return (Brush)GetValue(CheckedBorderBrushProperty); }
+            set { SetValue(CheckedBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedBorderBrushProperty =
+            DependencyProperty.Register("CheckedBorderBrush", typeof(Brush), typeof(XPButton), null);
+
         #endregion
 
         #region adjust content
@@ -227,6 +278,8 @@ namespace XP
 
         private void InitProperty()
         {
+            BackupBrush();
+
             if (IconForeground == null) IconForeground = Foreground;
 
             if (PointerOverBackground == null) PointerOverBackground = Background;
@@ -252,6 +305,41 @@ namespace XP
             _symbol = (ContentControl)GetTemplateChild("Symbol");
             _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
+        }
+
+        private Brush BackupBackground;
+        private Brush BackupTextForeground;
+        private Brush BackupIconForeground;
+        private Brush BackupBorderBrush;
+
+        private void BackupBrush()
+        {
+            BackupBackground = Background;
+            BackupTextForeground = Foreground;
+            BackupIconForeground = IconForeground;
+            BackupBorderBrush = BorderBrush;
+        }
+
+        private void SwitchBrush()
+        {
+            Background = IsChecked ? CheckedBackground : BackupBackground;
+            Foreground = IsChecked ? CheckedTextForeground : BackupTextForeground;
+            IconForeground = IsChecked ? CheckedIconForeground : BackupIconForeground;
+            BorderBrush = IsChecked ? CheckedBorderBrush : BackupBorderBrush;
+        }
+
+        protected override void OnTapped(TappedRoutedEventArgs e)
+        {
+            if (IsToggleMode)
+            {
+                IsChecked = !IsChecked;
+                SwitchBrush();
+                if (OnToggleChanged != null)
+                {
+                    OnToggleChanged(this, new ToggleEventArgs(IsChecked));
+                }
+            }
+            base.OnTapped(e);
         }
     }
 }

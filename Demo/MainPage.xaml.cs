@@ -26,5 +26,10 @@ namespace Demo
         {
             this.InitializeComponent();
         }
+
+        private void XPButton_OnToggleChanged(object sender, XP.ToggleEventArgs args)
+        {
+            ToggleBtn.Content = args.IsChecked ? "Star" : "Unstar";
+        }
     }
 }
