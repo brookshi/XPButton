@@ -279,6 +279,8 @@
                              CheckedPressedTextForeground="Yellow"
                              OnToggleChanged="XPButton_OnToggleChanged"
                              IsToggleMode="True"
+                                 IsChecked="True"
+                                 CheckedContent="Star"
                              FontSize="12" 
                              IconSize="30" 
                              IconPosition="Top" 

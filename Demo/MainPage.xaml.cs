@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -29,7 +30,7 @@ namespace Demo
 
         private void XPButton_OnToggleChanged(object sender, XP.ToggleEventArgs args)
         {
-            ToggleBtn.Content = args.IsChecked ? "Star" : "Unstar";
+            Debug.WriteLine("toggle: " + args.IsChecked.ToString());
         }
     }
 }

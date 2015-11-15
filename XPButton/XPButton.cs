@@ -193,6 +193,14 @@ namespace XP
         public static readonly DependencyProperty DisabledBorderBrushProperty =
             DependencyProperty.Register("DisabledBorderBrush", typeof(Brush), typeof(XPButton), null);
 
+        public string CheckedContent
+        {
+            get { return (string)GetValue(CheckedContentProperty); }
+            set { SetValue(CheckedContentProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedContentProperty =
+            DependencyProperty.Register("CheckedContent", typeof(string), typeof(XPButton), new PropertyMetadata(""));
+
         public Brush CheckedBackground
         {
             get { return (Brush)GetValue(CheckedBackgroundProperty); }
@@ -369,7 +377,11 @@ namespace XP
             if (CheckedPressedIconForeground == null) CheckedPressedIconForeground = CheckedIconForeground;
             if (CheckedPressedBorderBrush == null) CheckedPressedBorderBrush = CheckedBorderBrush;
 
+            if (CheckedContent == null) CheckedContent = Content.ToString();
+
             BackupBrush();
+
+            SwitchBrush();
         }
 
         protected override void OnApplyTemplate()
@@ -393,6 +405,7 @@ namespace XP
         private Brush BackupPressedTextForeground;
         private Brush BackupPressedIconForeground;
         private Brush BackupPressedBorderBrush;
+        private object BackupContent;
 
         private void BackupBrush()
         {
@@ -410,6 +423,8 @@ namespace XP
             BackupPressedTextForeground = PressedTextForeground;
             BackupPressedIconForeground = PressedIconForeground;
             BackupPressedBorderBrush = PressedBorderBrush;
+
+            BackupContent = Content;
         }
 
         private void SwitchBrush()
@@ -428,6 +443,8 @@ namespace XP
             PressedTextForeground = IsChecked ? CheckedPressedTextForeground : BackupPressedTextForeground;
             PressedIconForeground = IsChecked ? CheckedPressedIconForeground : BackupPressedIconForeground;
             PressedBorderBrush = IsChecked ? CheckedPressedBorderBrush : BackupPressedBorderBrush;
+
+            Content = IsChecked ? CheckedContent : BackupContent;
         }
 
         protected override void OnTapped(TappedRoutedEventArgs e)
