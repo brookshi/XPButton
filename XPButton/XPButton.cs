@@ -225,6 +225,70 @@ namespace XP
         public static readonly DependencyProperty CheckedBorderBrushProperty =
             DependencyProperty.Register("CheckedBorderBrush", typeof(Brush), typeof(XPButton), null);
 
+        public Brush CheckedPointerOverBackground
+        {
+            get { return (Brush)GetValue(CheckedPointerOverBackgroundProperty); }
+            set { SetValue(CheckedPointerOverBackgroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPointerOverBackgroundProperty =
+            DependencyProperty.Register("CheckedPointerOverBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPointerOverTextForeground
+        {
+            get { return (Brush)GetValue(CheckedPointerOverTextForegroundProperty); }
+            set { SetValue(CheckedPointerOverTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPointerOverTextForegroundProperty =
+            DependencyProperty.Register("CheckedPointerOverTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPointerOverIconForeground
+        {
+            get { return (Brush)GetValue(CheckedPointerOverIconForegroundProperty); }
+            set { SetValue(CheckedPointerOverIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPointerOverIconForegroundProperty =
+            DependencyProperty.Register("CheckedPointerOverIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPointerOverBorderBrush
+        {
+            get { return (Brush)GetValue(CheckedPointerOverBorderBrushProperty); }
+            set { SetValue(CheckedPointerOverBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPointerOverBorderBrushProperty =
+            DependencyProperty.Register("CheckedPointerOverBorderBrush", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPressedBackground
+        {
+            get { return (Brush)GetValue(CheckedPressedBackgroundProperty); }
+            set { SetValue(CheckedPressedBackgroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPressedBackgroundProperty =
+            DependencyProperty.Register("CheckedPressedBackground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPressedTextForeground
+        {
+            get { return (Brush)GetValue(CheckedPressedTextForegroundProperty); }
+            set { SetValue(CheckedPressedTextForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPressedTextForegroundProperty =
+            DependencyProperty.Register("CheckedPressedTextForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPressedIconForeground
+        {
+            get { return (Brush)GetValue(CheckedPressedIconForegroundProperty); }
+            set { SetValue(CheckedPressedIconForegroundProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPressedIconForegroundProperty =
+            DependencyProperty.Register("CheckedPressedIconForeground", typeof(Brush), typeof(XPButton), null);
+
+        public Brush CheckedPressedBorderBrush
+        {
+            get { return (Brush)GetValue(CheckedPressedBorderBrushProperty); }
+            set { SetValue(CheckedPressedBorderBrushProperty, value); }
+        }
+        public static readonly DependencyProperty CheckedPressedBorderBrushProperty =
+            DependencyProperty.Register("CheckedPresseddBorderBrush", typeof(Brush), typeof(XPButton), null);
+
         #endregion
 
         #region adjust content
@@ -278,8 +342,6 @@ namespace XP
 
         private void InitProperty()
         {
-            BackupBrush();
-
             if (IconForeground == null) IconForeground = Foreground;
 
             if (PointerOverBackground == null) PointerOverBackground = Background;
@@ -296,6 +358,18 @@ namespace XP
             if (DisabledTextForeground == null) DisabledTextForeground = Foreground;
             if (DisabledIconForeground == null) DisabledIconForeground = Foreground;
             if (DisabledBorderBrush == null) DisabledBorderBrush = BorderBrush;
+
+            if (CheckedPointerOverBackground == null) CheckedPointerOverBackground = CheckedBackground;
+            if (CheckedPointerOverTextForeground == null) CheckedPointerOverTextForeground = CheckedTextForeground;
+            if (CheckedPointerOverIconForeground == null) CheckedPointerOverIconForeground = CheckedIconForeground;
+            if (CheckedPointerOverBorderBrush == null) CheckedPointerOverBorderBrush = CheckedBorderBrush;
+
+            if (CheckedPressedBackground == null) CheckedPressedBackground = CheckedBackground;
+            if (CheckedPressedTextForeground == null) CheckedPressedTextForeground = CheckedTextForeground;
+            if (CheckedPressedIconForeground == null) CheckedPressedIconForeground = CheckedIconForeground;
+            if (CheckedPressedBorderBrush == null) CheckedPressedBorderBrush = CheckedBorderBrush;
+
+            BackupBrush();
         }
 
         protected override void OnApplyTemplate()
@@ -311,6 +385,14 @@ namespace XP
         private Brush BackupTextForeground;
         private Brush BackupIconForeground;
         private Brush BackupBorderBrush;
+        private Brush BackupPointerOverBackground;
+        private Brush BackupPointerOverTextForeground;
+        private Brush BackupPointerOverIconForeground;
+        private Brush BackupPointerOverBorderBrush;
+        private Brush BackupPressedBackground;
+        private Brush BackupPressedTextForeground;
+        private Brush BackupPressedIconForeground;
+        private Brush BackupPressedBorderBrush;
 
         private void BackupBrush()
         {
@@ -318,6 +400,16 @@ namespace XP
             BackupTextForeground = Foreground;
             BackupIconForeground = IconForeground;
             BackupBorderBrush = BorderBrush;
+
+            BackupPointerOverBackground = PointerOverBackground;
+            BackupPointerOverTextForeground = PointerOverTextForeground;
+            BackupPointerOverIconForeground = PointerOverIconForeground;
+            BackupPointerOverBorderBrush = PointerOverBorderBrush;
+
+            BackupPressedBackground = PressedBackground;
+            BackupPressedTextForeground = PressedTextForeground;
+            BackupPressedIconForeground = PressedIconForeground;
+            BackupPressedBorderBrush = PressedBorderBrush;
         }
 
         private void SwitchBrush()
@@ -326,6 +418,16 @@ namespace XP
             Foreground = IsChecked ? CheckedTextForeground : BackupTextForeground;
             IconForeground = IsChecked ? CheckedIconForeground : BackupIconForeground;
             BorderBrush = IsChecked ? CheckedBorderBrush : BackupBorderBrush;
+
+            PointerOverBackground = IsChecked ? CheckedPointerOverBackground : BackupPointerOverBackground;
+            PointerOverTextForeground = IsChecked ? CheckedPointerOverTextForeground : BackupPointerOverTextForeground;
+            PointerOverIconForeground = IsChecked ? CheckedPointerOverIconForeground : BackupPointerOverIconForeground;
+            PointerOverBorderBrush = IsChecked ? CheckedPointerOverBorderBrush : BackupPointerOverBorderBrush;
+
+            PressedBackground = IsChecked ? CheckedPressedBackground : BackupPressedBackground;
+            PressedTextForeground = IsChecked ? CheckedPressedTextForeground : BackupPressedTextForeground;
+            PressedIconForeground = IsChecked ? CheckedPressedIconForeground : BackupPressedIconForeground;
+            PressedBorderBrush = IsChecked ? CheckedPressedBorderBrush : BackupPressedBorderBrush;
         }
 
         protected override void OnTapped(TappedRoutedEventArgs e)
