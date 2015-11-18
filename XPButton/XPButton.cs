@@ -303,6 +303,9 @@ namespace XP
 
         void HorizontalCenterElements()
         {
+            if (_symbolView == null || _contentPresenter == null)
+                return;
+
             switch (IconPosition)
             {
                 case IconPosition.Left:
