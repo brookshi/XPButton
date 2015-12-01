@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -21,16 +22,37 @@ namespace Demo
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         public MainPage()
         {
             this.InitializeComponent();
+
+            Loaded += MainPage_Loaded;
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            ToggleText = "22";
         }
 
         private void XPButton_OnToggleChanged(object sender, XP.ToggleEventArgs args)
         {
             Debug.WriteLine("toggle: " + args.IsChecked.ToString());
+            //args.IsCancel = true;
+        }
+
+        private string _toggleText = "11";
+        public string ToggleText
+        {
+            get { return _toggleText; }
+            set
+            {
+                _toggleText = value;
+                if(PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("ToggleText"));
+            }
         }
     }
 }

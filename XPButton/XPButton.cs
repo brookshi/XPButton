@@ -87,7 +87,7 @@ namespace XP
             set { SetValue(IconForegroundProperty, value); }
         }
         public static readonly DependencyProperty IconForegroundProperty =
-            DependencyProperty.Register("IconForeground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("IconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s,d)=> { ((XPButton)s).BackupIconForeground = ((XPButton)s).IconForeground; }));
 
         public CornerRadius CornerRadius
         {
@@ -103,7 +103,7 @@ namespace XP
             set { SetValue(PointerOverBackgroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverBackgroundProperty =
-            DependencyProperty.Register("PointerOverBackground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PointerOverBackground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverBackground = ((XPButton)s).PointerOverBackground; }));
 
         public Brush PointerOverTextForeground
         {
@@ -111,7 +111,7 @@ namespace XP
             set { SetValue(PointerOverTextForegroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverTextForegroundProperty =
-            DependencyProperty.Register("PointerOverTextForeground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PointerOverTextForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverTextForeground = ((XPButton)s).PointerOverTextForeground; }));
 
         public Brush PointerOverIconForeground
         {
@@ -119,7 +119,7 @@ namespace XP
             set { SetValue(PointerOverIconForegroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverIconForegroundProperty =
-            DependencyProperty.Register("PointerOverIconForeground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PointerOverIconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverIconForeground = ((XPButton)s).PointerOverIconForeground; }));
 
         public Brush PointerOverBorderBrush
         {
@@ -127,7 +127,7 @@ namespace XP
             set { SetValue(PointerOverBorderBrushProperty, value); }
         }
         public static readonly DependencyProperty PointerOverBorderBrushProperty =
-            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverBorderBrush = ((XPButton)s).PointerOverBorderBrush; }));
 
         public Brush PressedBackground
         {
@@ -135,7 +135,7 @@ namespace XP
             set { SetValue(PressedBackgroundProperty, value); }
         }
         public static readonly DependencyProperty PressedBackgroundProperty =
-            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedBackground = ((XPButton)s).PressedBackground; }));
 
         public Brush PressedTextForeground
         {
@@ -143,7 +143,7 @@ namespace XP
             set { SetValue(PressedTextForegroundProperty, value); }
         }
         public static readonly DependencyProperty PressedTextForegroundProperty =
-            DependencyProperty.Register("PressedTextForeground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PressedTextForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedTextForeground = ((XPButton)s).PressedTextForeground; }));
 
         public Brush PressedIconForeground
         {
@@ -151,7 +151,7 @@ namespace XP
             set { SetValue(PressedIconForegroundProperty, value); }
         }
         public static readonly DependencyProperty PressedIconForegroundProperty =
-            DependencyProperty.Register("PressedIconForeground", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PressedIconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedIconForeground = ((XPButton)s).PressedIconForeground; }));
 
         public Brush PressedBorderBrush
         {
@@ -159,7 +159,7 @@ namespace XP
             set { SetValue(PressedBorderBrushProperty, value); }
         }
         public static readonly DependencyProperty PressedBorderBrushProperty =
-            DependencyProperty.Register("PresseddBorderBrush", typeof(Brush), typeof(XPButton), null);
+            DependencyProperty.Register("PresseddBorderBrush", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedBorderBrush = ((XPButton)s).PressedBorderBrush; }));
 
         public Brush DisabledBackground
         {
@@ -348,6 +348,7 @@ namespace XP
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
             InitProperty();
+            InitOriginPropertyChangedCallback();
             HorizontalCenterElements();
         }
 
@@ -385,6 +386,22 @@ namespace XP
             BackupBrush();
 
             SwitchBrush();
+        }
+
+        private void InitOriginPropertyChangedCallback()
+        {
+            RegisterPropertyChangedCallback(ContentProperty, (s, d) =>
+            {
+                BackupContent = Content;
+            });
+            RegisterPropertyChangedCallback(BackgroundProperty, (s, d) =>
+            {
+                BackupBackground = Background;
+            });
+            RegisterPropertyChangedCallback(BorderBrushProperty, (s, d) =>
+            {
+                BackupBorderBrush = BorderBrush;
+            });
         }
 
         protected override void OnApplyTemplate()
@@ -452,16 +469,29 @@ namespace XP
 
         protected override void OnTapped(TappedRoutedEventArgs e)
         {
-            if (IsToggleMode)
+            if (!IsToggleMode)
             {
+                base.OnTapped(e);
+                return;
+            }
+
+            var toggle = new Action(() => {
                 IsChecked = !IsChecked;
                 SwitchBrush();
-                if (OnToggleChanged != null)
-                {
-                    OnToggleChanged(this, new ToggleEventArgs(IsChecked));
-                }
+            });
+
+            if (OnToggleChanged == null)
+            {
+                toggle();
+                return;
             }
-            base.OnTapped(e);
+           
+            var eventArgs = new ToggleEventArgs(IsChecked);
+            OnToggleChanged(this, eventArgs);
+            if(!eventArgs.IsCancel)
+            {
+                toggle();
+            }
         }
     }
 }
