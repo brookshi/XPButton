@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -28,6 +29,7 @@ namespace XP
         private Viewbox _symbolView;
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
+        private long[] _propertyRegTokens = new long[13];
 
         #region property
 
@@ -87,7 +89,7 @@ namespace XP
             set { SetValue(IconForegroundProperty, value); }
         }
         public static readonly DependencyProperty IconForegroundProperty =
-            DependencyProperty.Register("IconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s,d)=> { ((XPButton)s).BackupIconForeground = ((XPButton)s).IconForeground; }));
+            DependencyProperty.Register("IconForeground", typeof(Brush), typeof(XPButton), null);
 
         public CornerRadius CornerRadius
         {
@@ -103,7 +105,7 @@ namespace XP
             set { SetValue(PointerOverBackgroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverBackgroundProperty =
-            DependencyProperty.Register("PointerOverBackground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverBackground = ((XPButton)s).PointerOverBackground; }));
+            DependencyProperty.Register("PointerOverBackground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PointerOverTextForeground
         {
@@ -111,7 +113,7 @@ namespace XP
             set { SetValue(PointerOverTextForegroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverTextForegroundProperty =
-            DependencyProperty.Register("PointerOverTextForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverTextForeground = ((XPButton)s).PointerOverTextForeground; }));
+            DependencyProperty.Register("PointerOverTextForeground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PointerOverIconForeground
         {
@@ -119,7 +121,7 @@ namespace XP
             set { SetValue(PointerOverIconForegroundProperty, value); }
         }
         public static readonly DependencyProperty PointerOverIconForegroundProperty =
-            DependencyProperty.Register("PointerOverIconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverIconForeground = ((XPButton)s).PointerOverIconForeground; }));
+            DependencyProperty.Register("PointerOverIconForeground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PointerOverBorderBrush
         {
@@ -127,7 +129,7 @@ namespace XP
             set { SetValue(PointerOverBorderBrushProperty, value); }
         }
         public static readonly DependencyProperty PointerOverBorderBrushProperty =
-            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPointerOverBorderBrush = ((XPButton)s).PointerOverBorderBrush; }));
+            DependencyProperty.Register("PointerOverBorderBrush", typeof(Brush), typeof(XPButton), null);
 
         public Brush PressedBackground
         {
@@ -135,7 +137,7 @@ namespace XP
             set { SetValue(PressedBackgroundProperty, value); }
         }
         public static readonly DependencyProperty PressedBackgroundProperty =
-            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedBackground = ((XPButton)s).PressedBackground; }));
+            DependencyProperty.Register("PressedBackground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PressedTextForeground
         {
@@ -143,7 +145,7 @@ namespace XP
             set { SetValue(PressedTextForegroundProperty, value); }
         }
         public static readonly DependencyProperty PressedTextForegroundProperty =
-            DependencyProperty.Register("PressedTextForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedTextForeground = ((XPButton)s).PressedTextForeground; }));
+            DependencyProperty.Register("PressedTextForeground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PressedIconForeground
         {
@@ -151,7 +153,7 @@ namespace XP
             set { SetValue(PressedIconForegroundProperty, value); }
         }
         public static readonly DependencyProperty PressedIconForegroundProperty =
-            DependencyProperty.Register("PressedIconForeground", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedIconForeground = ((XPButton)s).PressedIconForeground; }));
+            DependencyProperty.Register("PressedIconForeground", typeof(Brush), typeof(XPButton), null);
 
         public Brush PressedBorderBrush
         {
@@ -159,7 +161,7 @@ namespace XP
             set { SetValue(PressedBorderBrushProperty, value); }
         }
         public static readonly DependencyProperty PressedBorderBrushProperty =
-            DependencyProperty.Register("PresseddBorderBrush", typeof(Brush), typeof(XPButton), new PropertyMetadata(null, (s, d) => { ((XPButton)s).BackupPressedBorderBrush = ((XPButton)s).PressedBorderBrush; }));
+            DependencyProperty.Register("PresseddBorderBrush", typeof(Brush), typeof(XPButton), null);
 
         public Brush DisabledBackground
         {
@@ -347,12 +349,37 @@ namespace XP
 
         private void XPButton_Loaded(object sender, RoutedEventArgs e)
         {
-            InitProperty();
-            InitOriginPropertyChangedCallback();
+            InitPropertyForNull();
+
+            InitCheckedRelativeProperties();
+
+            RegisterPropertyChangedCallbacks();
+
             HorizontalCenterElements();
+
+            BackupBrush();
+
+            SwitchBrush();
         }
 
-        private void InitProperty()
+        private void InitCheckedRelativeProperties()
+        {
+            BackupObjects = new object[13];
+
+            //OriginObjects = new object[]{ Content, IconForeground, Foreground, Background, BorderBrush,
+            //                              PointerOverBackground, PointerOverTextForeground, PointerOverIconForeground, PointerOverBorderBrush,
+            //                              PressedBackground, PressedTextForeground, PressedIconForeground, PressedBorderBrush };
+
+            //CheckedObjects = new object[]{ CheckedContent, CheckedIconForeground, CheckedTextForeground, CheckedBackground, CheckedBorderBrush,
+            //                              CheckedPointerOverBackground, CheckedPointerOverTextForeground, CheckedPointerOverIconForeground, CheckedPointerOverBorderBrush,
+            //                              CheckedPressedBackground, CheckedPressedTextForeground, CheckedPressedIconForeground, CheckedPressedBorderBrush };
+
+            //ToggleProperties = new DependencyProperty[]{ContentProperty, IconForegroundProperty, ForegroundProperty, BackgroundProperty, BorderBrushProperty,
+            //                                            PointerOverBackgroundProperty,PointerOverTextForegroundProperty, PointerOverIconForegroundProperty, PointerOverBorderBrushProperty,
+            //                                            PressedBackgroundProperty, PressedTextForegroundProperty, PressedIconForegroundProperty, PressedBorderBrushProperty};
+        }
+
+        private void InitPropertyForNull()
         {
             if (IconForeground == null) IconForeground = Foreground;
 
@@ -382,25 +409,47 @@ namespace XP
             if (CheckedPressedBorderBrush == null) CheckedPressedBorderBrush = CheckedBorderBrush;
 
             if (CheckedContent == null) CheckedContent = Content.ToString();
-
-            BackupBrush();
-
-            SwitchBrush();
         }
 
-        private void InitOriginPropertyChangedCallback()
+        private void RegisterPropertyChangedCallbacks()
         {
-            RegisterPropertyChangedCallback(ContentProperty, (s, d) =>
+            _propertyRegTokens[0] = RegisterPropertyChangedCallback(ContentProperty, (s, d) => { BackupObjects[0]  = Content; });
+            _propertyRegTokens[1] = RegisterPropertyChangedCallback(IconForegroundProperty, (s, d) => { BackupObjects[1]  = Content; });
+            _propertyRegTokens[2] = RegisterPropertyChangedCallback(ForegroundProperty, (s, d) => { BackupObjects[2]  = Content; });
+            _propertyRegTokens[3] = RegisterPropertyChangedCallback(BackgroundProperty, (s, d) => { BackupObjects[3]  = Content; });
+            _propertyRegTokens[4] = RegisterPropertyChangedCallback(BorderBrushProperty, (s, d) => { BackupObjects[4]  = Content; });
+            _propertyRegTokens[5] = RegisterPropertyChangedCallback(PointerOverBackgroundProperty, (s, d) => { BackupObjects[5]  = Content; });
+            _propertyRegTokens[6] = RegisterPropertyChangedCallback(PointerOverTextForegroundProperty, (s, d) => { BackupObjects[6]  = Content; });
+            _propertyRegTokens[7] = RegisterPropertyChangedCallback(PointerOverIconForegroundProperty, (s, d) => { BackupObjects[7]  = Content; });
+            _propertyRegTokens[8] = RegisterPropertyChangedCallback(PointerOverBorderBrushProperty, (s, d) => { BackupObjects[8]  = Content; });
+            _propertyRegTokens[9] = RegisterPropertyChangedCallback(PressedBackgroundProperty, (s, d) => { BackupObjects[9]  = Content; });
+            _propertyRegTokens[10] = RegisterPropertyChangedCallback(PressedTextForegroundProperty, (s, d) => { BackupObjects[10] = Content; });
+            _propertyRegTokens[11] = RegisterPropertyChangedCallback(PressedIconForegroundProperty, (s, d) => { BackupObjects[11] = Content; });
+            _propertyRegTokens[12] = RegisterPropertyChangedCallback(PressedBorderBrushProperty, (s, d) => { BackupObjects[12] = Content; });
+        }
+
+        private void UnregisterPropertyChangedCallbacks()
+        {
+            UnregisterPropertyChangedCallback(ContentProperty, _propertyRegTokens[0]);
+            UnregisterPropertyChangedCallback(IconForegroundProperty, _propertyRegTokens[1]);
+            UnregisterPropertyChangedCallback(ForegroundProperty, _propertyRegTokens[2]);
+            UnregisterPropertyChangedCallback(BackgroundProperty, _propertyRegTokens[3]);
+            UnregisterPropertyChangedCallback(BorderBrushProperty, _propertyRegTokens[4]);
+            UnregisterPropertyChangedCallback(PointerOverBackgroundProperty, _propertyRegTokens[5]);
+            UnregisterPropertyChangedCallback(PointerOverTextForegroundProperty, _propertyRegTokens[6]);
+            UnregisterPropertyChangedCallback(PointerOverIconForegroundProperty, _propertyRegTokens[7]);
+            UnregisterPropertyChangedCallback(PointerOverBorderBrushProperty, _propertyRegTokens[8]);
+            UnregisterPropertyChangedCallback(PressedBackgroundProperty, _propertyRegTokens[9]);
+            UnregisterPropertyChangedCallback(PressedTextForegroundProperty, _propertyRegTokens[10]);
+            UnregisterPropertyChangedCallback(PressedIconForegroundProperty, _propertyRegTokens[11]);
+            UnregisterPropertyChangedCallback(PressedBorderBrushProperty, _propertyRegTokens[12]);
+        }
+
+        private long RegisterPropertyChangedCallback(DependencyProperty property, object backupProperty, object originProperty)
+        {
+            return RegisterPropertyChangedCallback(property, (s, d) =>
             {
-                BackupContent = Content;
-            });
-            RegisterPropertyChangedCallback(BackgroundProperty, (s, d) =>
-            {
-                BackupBackground = Background;
-            });
-            RegisterPropertyChangedCallback(BorderBrushProperty, (s, d) =>
-            {
-                BackupBorderBrush = BorderBrush;
+                backupProperty = originProperty;
             });
         }
 
@@ -413,58 +462,61 @@ namespace XP
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
         }
 
-        private Brush BackupBackground;
-        private Brush BackupTextForeground;
-        private Brush BackupIconForeground;
-        private Brush BackupBorderBrush;
-        private Brush BackupPointerOverBackground;
-        private Brush BackupPointerOverTextForeground;
-        private Brush BackupPointerOverIconForeground;
-        private Brush BackupPointerOverBorderBrush;
-        private Brush BackupPressedBackground;
-        private Brush BackupPressedTextForeground;
-        private Brush BackupPressedIconForeground;
-        private Brush BackupPressedBorderBrush;
-        private object BackupContent;
+        //private Brush BackupBackground;
+        //private Brush BackupTextForeground;
+        //private Brush BackupIconForeground;
+        //private Brush BackupBorderBrush;
+        //private Brush BackupPointerOverBackground;
+        //private Brush BackupPointerOverTextForeground;
+        //private Brush BackupPointerOverIconForeground;
+        //private Brush BackupPointerOverBorderBrush;
+        //private Brush BackupPressedBackground;
+        //private Brush BackupPressedTextForeground;
+        //private Brush BackupPressedIconForeground;
+        //private Brush BackupPressedBorderBrush;
+        //private object BackupContent;
+
+        //private DependencyProperty[] ToggleProperties;
+        private object[] BackupObjects;
+        //private object[] OriginObjects;
+        //private object[] CheckedObjects;
 
         private void BackupBrush()
         {
-            BackupBackground = Background;
-            BackupTextForeground = Foreground;
-            BackupIconForeground = IconForeground;
-            BackupBorderBrush = BorderBrush;
-
-            BackupPointerOverBackground = PointerOverBackground;
-            BackupPointerOverTextForeground = PointerOverTextForeground;
-            BackupPointerOverIconForeground = PointerOverIconForeground;
-            BackupPointerOverBorderBrush = PointerOverBorderBrush;
-
-            BackupPressedBackground = PressedBackground;
-            BackupPressedTextForeground = PressedTextForeground;
-            BackupPressedIconForeground = PressedIconForeground;
-            BackupPressedBorderBrush = PressedBorderBrush;
-
-            BackupContent = Content;
+            BackupObjects[0] = Content;
+            BackupObjects[1] = IconForeground;
+            BackupObjects[2] = Foreground;
+            BackupObjects[3] = Background;
+            BackupObjects[4] = BorderBrush;
+            BackupObjects[5] = PointerOverBackground;
+            BackupObjects[6] = PointerOverTextForeground;
+            BackupObjects[7] = PointerOverIconForeground;
+            BackupObjects[8] = PointerOverBorderBrush;
+            BackupObjects[9] = PressedBackground;
+            BackupObjects[10] = PressedTextForeground;
+            BackupObjects[11] = PressedIconForeground;
+            BackupObjects[12] = PressedBorderBrush;
         }
 
         private void SwitchBrush()
         {
-            Background = IsChecked ? CheckedBackground : BackupBackground;
-            Foreground = IsChecked ? CheckedTextForeground : BackupTextForeground;
-            IconForeground = IsChecked ? CheckedIconForeground : BackupIconForeground;
-            BorderBrush = IsChecked ? CheckedBorderBrush : BackupBorderBrush;
+            UnregisterPropertyChangedCallbacks();
 
-            PointerOverBackground = IsChecked ? CheckedPointerOverBackground : BackupPointerOverBackground;
-            PointerOverTextForeground = IsChecked ? CheckedPointerOverTextForeground : BackupPointerOverTextForeground;
-            PointerOverIconForeground = IsChecked ? CheckedPointerOverIconForeground : BackupPointerOverIconForeground;
-            PointerOverBorderBrush = IsChecked ? CheckedPointerOverBorderBrush : BackupPointerOverBorderBrush;
+            Content = IsChecked ? CheckedContent : BackupObjects[0];
+            IconForeground = IsChecked ? CheckedIconForeground : (Brush)BackupObjects[1];
+            Foreground = IsChecked ? CheckedTextForeground : (Brush)BackupObjects[2];
+            Background = IsChecked ? CheckedBackground : (Brush)BackupObjects[3];
+            BorderBrush = IsChecked ? CheckedBorderBrush : (Brush)BackupObjects[4];
+            PointerOverBackground = IsChecked ? CheckedPointerOverBackground : (Brush)BackupObjects[5];
+            PointerOverTextForeground = IsChecked ? CheckedPointerOverTextForeground : (Brush)BackupObjects[6];
+            PointerOverIconForeground = IsChecked ? CheckedPointerOverIconForeground : (Brush)BackupObjects[7];
+            PointerOverBorderBrush = IsChecked ? CheckedPointerOverBorderBrush : (Brush)BackupObjects[8];
+            PressedBackground = IsChecked ? CheckedPressedBackground : (Brush)BackupObjects[9];
+            PressedTextForeground= IsChecked ? CheckedPressedTextForeground : (Brush)BackupObjects[10];
+            PressedIconForeground = IsChecked ? CheckedPressedIconForeground : (Brush)BackupObjects[11];
+            PressedBorderBrush = IsChecked ? CheckedPressedBorderBrush : (Brush)BackupObjects[12];
 
-            PressedBackground = IsChecked ? CheckedPressedBackground : BackupPressedBackground;
-            PressedTextForeground = IsChecked ? CheckedPressedTextForeground : BackupPressedTextForeground;
-            PressedIconForeground = IsChecked ? CheckedPressedIconForeground : BackupPressedIconForeground;
-            PressedBorderBrush = IsChecked ? CheckedPressedBorderBrush : BackupPressedBorderBrush;
-
-            Content = IsChecked ? CheckedContent : BackupContent;
+            RegisterPropertyChangedCallbacks();
         }
 
         protected override void OnTapped(TappedRoutedEventArgs e)
