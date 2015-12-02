@@ -30,6 +30,7 @@ namespace XP
         private RelativePanel _visualPanel;
         private ContentPresenter _contentPresenter;
         private long[] _propertyRegTokens = new long[13];
+        private object[] BackupObjects = new object[13];
 
         #region property
 
@@ -49,7 +50,7 @@ namespace XP
             set { SetValue(IsCheckedProperty, value); }
         }
         public static readonly DependencyProperty IsCheckedProperty =
-            DependencyProperty.Register("IsChecked", typeof(bool), typeof(XPButton), new PropertyMetadata(false));
+            DependencyProperty.Register("IsChecked", typeof(bool), typeof(XPButton), new PropertyMetadata(false, (s, d)=> { (s as XPButton).SwitchBrush(); }));
 
         public IconElement Icon
         {
@@ -351,8 +352,6 @@ namespace XP
         {
             InitPropertyForNull();
 
-            InitCheckedRelativeProperties();
-
             RegisterPropertyChangedCallbacks();
 
             HorizontalCenterElements();
@@ -360,23 +359,6 @@ namespace XP
             BackupBrush();
 
             SwitchBrush();
-        }
-
-        private void InitCheckedRelativeProperties()
-        {
-            BackupObjects = new object[13];
-
-            //OriginObjects = new object[]{ Content, IconForeground, Foreground, Background, BorderBrush,
-            //                              PointerOverBackground, PointerOverTextForeground, PointerOverIconForeground, PointerOverBorderBrush,
-            //                              PressedBackground, PressedTextForeground, PressedIconForeground, PressedBorderBrush };
-
-            //CheckedObjects = new object[]{ CheckedContent, CheckedIconForeground, CheckedTextForeground, CheckedBackground, CheckedBorderBrush,
-            //                              CheckedPointerOverBackground, CheckedPointerOverTextForeground, CheckedPointerOverIconForeground, CheckedPointerOverBorderBrush,
-            //                              CheckedPressedBackground, CheckedPressedTextForeground, CheckedPressedIconForeground, CheckedPressedBorderBrush };
-
-            //ToggleProperties = new DependencyProperty[]{ContentProperty, IconForegroundProperty, ForegroundProperty, BackgroundProperty, BorderBrushProperty,
-            //                                            PointerOverBackgroundProperty,PointerOverTextForegroundProperty, PointerOverIconForegroundProperty, PointerOverBorderBrushProperty,
-            //                                            PressedBackgroundProperty, PressedTextForegroundProperty, PressedIconForegroundProperty, PressedBorderBrushProperty};
         }
 
         private void InitPropertyForNull()
@@ -462,25 +444,6 @@ namespace XP
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
         }
 
-        //private Brush BackupBackground;
-        //private Brush BackupTextForeground;
-        //private Brush BackupIconForeground;
-        //private Brush BackupBorderBrush;
-        //private Brush BackupPointerOverBackground;
-        //private Brush BackupPointerOverTextForeground;
-        //private Brush BackupPointerOverIconForeground;
-        //private Brush BackupPointerOverBorderBrush;
-        //private Brush BackupPressedBackground;
-        //private Brush BackupPressedTextForeground;
-        //private Brush BackupPressedIconForeground;
-        //private Brush BackupPressedBorderBrush;
-        //private object BackupContent;
-
-        //private DependencyProperty[] ToggleProperties;
-        private object[] BackupObjects;
-        //private object[] OriginObjects;
-        //private object[] CheckedObjects;
-
         private void BackupBrush()
         {
             BackupObjects[0] = Content;
@@ -527,22 +490,16 @@ namespace XP
                 return;
             }
 
-            var toggle = new Action(() => {
-                IsChecked = !IsChecked;
-                SwitchBrush();
-            });
+            IsChecked = !IsChecked;
 
-            if (OnToggleChanged == null)
+            if (OnToggleChanged != null)
             {
-                toggle();
-                return;
-            }
-           
-            var eventArgs = new ToggleEventArgs(IsChecked);
-            OnToggleChanged(this, eventArgs);
-            if(!eventArgs.IsCancel)
-            {
-                toggle();
+                var eventArgs = new ToggleEventArgs(IsChecked);
+                OnToggleChanged(this, eventArgs);
+                if (eventArgs.IsCancel)
+                {
+                    IsChecked = !IsChecked;
+                }
             }
         }
     }

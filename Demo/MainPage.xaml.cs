@@ -37,10 +37,25 @@ namespace Demo
             ToggleText = "22";
         }
 
+        private bool _isChecked = false;
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set
+            {
+                if(value != _isChecked)
+                {
+                    _isChecked = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("IsChecked"));
+                }
+            }
+        }
+
         private void XPButton_OnToggleChanged(object sender, XP.ToggleEventArgs args)
         {
             Debug.WriteLine("toggle: " + args.IsChecked.ToString());
-            //args.IsCancel = true;
+            args.IsCancel = true;
         }
 
         private string _toggleText = "11";
@@ -49,10 +64,19 @@ namespace Demo
             get { return _toggleText; }
             set
             {
-                _toggleText = value;
-                if(PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("ToggleText"));
+                if(value != _toggleText)
+                {
+                    _toggleText = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("ToggleText"));
+                }
             }
+        }
+
+        private void XPButton_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("binding: " + IsChecked.ToString());
+            IsChecked = !IsChecked;
         }
     }
 }
