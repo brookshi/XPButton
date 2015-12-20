@@ -37,8 +37,8 @@ namespace Demo
             ToggleText = "22";
         }
 
-        private bool _isChecked = false;
-        public bool IsChecked
+        private bool? _isChecked = false;
+        public bool? IsChecked
         {
             get { return _isChecked; }
             set
@@ -55,7 +55,7 @@ namespace Demo
         private void XPButton_OnToggleChanged(object sender, XP.ToggleEventArgs args)
         {
             Debug.WriteLine("toggle: " + args.IsChecked.ToString());
-           // args.IsCancel = true;
+            //args.IsCancel = true;
         }
 
         private string _toggleText = "11";
