@@ -284,7 +284,7 @@
                                        IconInterval="5"
                                        IconPosition="Top"
                                        IconSize="30"
-                                       IsChecked="{x:Bind IsChecked, Mode=TwoWay}"
+                                       IsChecked="True"
                                        OnToggleChanged="{x:Bind XPButton_OnToggleChanged}"
                                        PointerOverBackground="LightGray"
                                        PointerOverIconForeground="White"
@@ -292,6 +292,9 @@
                                        PressedBackground="Gray"
                                        PressedIconForeground="White"
                                        PressedTextForeground="White" />
+                    <ToggleButton Margin="10"
+                                  Content="asdf"
+                                  IsChecked="True"/>
                     <xp:XPButton Margin="10"
                                  Background="Transparent"
                                  BorderBrush="Yellow"

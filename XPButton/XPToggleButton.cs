@@ -330,7 +330,7 @@ namespace XP
             if (CheckedPressedIconForeground == null) CheckedPressedIconForeground = CheckedIconForeground;
             if (CheckedPressedBorderBrush == null) CheckedPressedBorderBrush = CheckedBorderBrush;
 
-            if (CheckedContent == null) CheckedContent = Content.ToString();
+            if (CheckedContent == null && Content != null) CheckedContent = Content.ToString();
         }
 
         protected override void OnApplyTemplate()

@@ -37,7 +37,7 @@ namespace Demo
             ToggleText = "22";
         }
 
-        private bool? _isChecked = false;
+        private bool? _isChecked = true;
         public bool? IsChecked
         {
             get { return _isChecked; }
