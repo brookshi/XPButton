@@ -67,7 +67,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Symbol" Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisabledIconForeground}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VisualPanel" Storyboard.TargetProperty="Background">
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DisabledBackground}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="VisualPanel" Storyboard.TargetProperty="BorderBrush">
@@ -451,9 +451,7 @@
                                      VerticalAlignment="Stretch"
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.AlignVerticalCenterWithPanel="True">
-                                <ContentControl x:Name="Symbol"
-                                                Content="{TemplateBinding Icon}"
-                                                Foreground="{TemplateBinding IconForeground}" />
+                                <ContentControl x:Name="Symbol" Content="{TemplateBinding Icon}" />
                             </Viewbox>
                             <ContentPresenter x:Name="ContentPresenter"
                                               Margin="{Binding RelativeSource={RelativeSource TemplatedParent},

@@ -68,7 +68,7 @@ namespace XP
 
         public Brush IconForeground
         {
-            get { return (Brush)GetValue(IconForegroundProperty); }
+            get { if (Icon is BitmapIcon) return null; return (Brush)GetValue(IconForegroundProperty); }
             set { SetValue(IconForegroundProperty, value); }
         }
         public static readonly DependencyProperty IconForegroundProperty =
@@ -191,6 +191,16 @@ namespace XP
             InitPropertyForNull();
 
             _common.HorizontalCenterElements(this, _symbolView, _contentPresenter, IconPosition, IconInterval);
+
+            if(!IsEnabled)
+            {
+                var stategroup = VisualStateManager.GetVisualStateGroups(_rootGrid);//.GoToState(_rootGrid, "Disabled", false);
+                foreach(var state in stategroup)
+                {
+                    System.Diagnostics.Debug.WriteLine(state.Name);
+                }
+
+            }
         }
 
         private void InitPropertyForNull()
@@ -213,6 +223,7 @@ namespace XP
             if (DisabledBorderBrush == null) DisabledBorderBrush = BorderBrush;
         }
 
+        Grid _rootGrid;
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -220,6 +231,7 @@ namespace XP
             _symbol = (ContentControl)GetTemplateChild("Symbol");
             _symbolView = (Viewbox)GetTemplateChild("SymbolView");
             _contentPresenter = (ContentPresenter)GetTemplateChild("ContentPresenter");
+            _rootGrid = (Grid)GetTemplateChild("RootGrid");
         }
     }
 }
